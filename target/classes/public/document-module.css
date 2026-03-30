@@ -1,0 +1,87 @@
+.document-wrapper .container-2 {
+  max-width: 900px;
+  margin: auto;
+  color: rgb(71, 71, 71);
+  max-height: 320px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.document-wrapper h1 {
+  text-align: center;
+  font-size: 36px;
+  letter-spacing: 4px;
+  font-weight: 300;
+  margin-bottom: 4px;
+}
+
+.document-wrapper h2 {
+  text-align: center;
+  font-size: 10px;
+  font-weight: bold;
+  text-decoration: underline;
+  margin-bottom: 12px;
+}
+
+.document-wrapper p {
+  font-size: 10px;
+  margin-bottom: 0px;
+}
+
+.document-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+  margin-bottom: 25px;
+}
+
+.document-wrapper tr:nth-child(odd) {
+  background-color: rgb(236, 239, 241)
+}
+
+.document-wrapper tr:nth-child(even) {
+  background-color: transparent;
+  
+}
+
+.document-wrapper th,
+.document-wrapper td {
+  padding: 2px 6px;
+  border: 1px solid #cfcfcf;
+  font-size: 10px;
+}
+
+.document-wrapper th {
+  background-color: #6f8792;
+  color: #000;
+  text-align: left;
+  font-weight: bold;
+}
+
+.document-wrapper td.label {
+  width: 35%;
+  
+}
+
+.document-wrapper td.value {
+  width: 65%;
+  
+}
+
+.document-wrapper .italic {
+  font-style: italic;
+  margin: 18px 0;
+}
+
+.document-wrapper .footer {
+  margin-top: 35px;
+}
+
+.document-wrapper .footer p {
+  margin: 8px 0;
+}
+
+.document-wrapper .link {
+  color: blue;
+  text-decoration: underline;
+}

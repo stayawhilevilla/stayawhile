@@ -13,9 +13,9 @@ document.addEventListener('DOMContentLoaded', function() {
     let lastScrollY = window.scrollY;
     let ticking = false;
     let isVisible = false;
-    
     // Function to update sticky form visibility
     function updateStickyForm() {
+        
         const scrollY = window.scrollY;
         const windowHeight = window.innerHeight;
         const documentHeight = document.documentElement.scrollHeight;
@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show form when user scrolls down more than 100px
         if (scrollY > 100 && !isVisible) {
             stickyContainer.classList.add('show');
+            
             document.getElementById("sticky-form-container").classList.add("animated");
             document.getElementById("sticky-form-nav").classList.add("animated");
             isVisible = true;

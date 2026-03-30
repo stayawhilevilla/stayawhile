@@ -22,7 +22,7 @@
   transform: translateX(-50%);
   background: white;
   border: 1px solid #d1d5db;
-  padding: 12px 26px;
+  padding: 8px 16px;
   z-index: 50;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   display: none;
@@ -106,6 +106,25 @@
 /* Clear Dates Button */
 #clear-dates-btn {
   transition: opacity 0.2s ease;
+}
+
+/* Mobile Device Styles */
+@media (max-width: 768px) {
+ .custom-datepicker {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border: 1px solid #d1d5db;
+  padding: 8px 16px;
+  z-index: 50;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  display: none;
+  margin-top: 4px;
+  width: max-content;
+}
+
 }
 
 #clear-dates-btn:hover {
