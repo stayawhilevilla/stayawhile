@@ -1,0 +1,14 @@
+vacation\stayawhile\app\controller\VacationPropertyController.class
+vacation\stayawhile\app\App.class
+vacation\stayawhile\app\model\Terms.class
+vacation\stayawhile\app\model\Address.class
+vacation\stayawhile\app\model\Prices.class
+vacation\stayawhile\app\service\VacationPropertyService.class
+vacation\stayawhile\app\model\Amenity.class
+vacation\stayawhile\app\model\Picture.class
+vacation\stayawhile\app\model\VirtualTour.class
+vacation\stayawhile\app\model\NearbyProperty.class
+vacation\stayawhile\app\model\VacationProperty.class
+vacation\stayawhile\app\model\PublicDescription.class
+vacation\stayawhile\app\model\Reviews.class
+vacation\stayawhile\app\repository\VacationPropertyRepository.class
