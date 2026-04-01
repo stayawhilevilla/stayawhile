@@ -253,8 +253,8 @@ async function initProperty() {
     
     // Fetch property data from local API
     const apiUrl = requestedId 
-      ? `http://localhost/api/properties/${requestedId}`
-      : 'http://localhost/api/properties';
+      ? `/api/properties/${requestedId}`
+      : '/api/properties';
     
     const response = await fetch(apiUrl);
     if (!response.ok) throw new Error('Failed to load property data');
@@ -438,7 +438,7 @@ function initNearbyProperties(currentProperty) {
   const currentId = currentProperty._id;
 
   // Fetch all properties from API to find nearby ones
-  fetch('http://localhost/api/properties')
+  fetch('/api/properties')
     .then(response => response.json())
     .then(allProperties => {
       let properties = Array.isArray(allProperties) ? allProperties : [allProperties];
@@ -666,10 +666,46 @@ function initListingNav() {
   const menu = document.getElementById('site-nav-menu');
   const toggle = document.getElementById('site-nav-toggle');
   if (!menu || !toggle) return;
+  
+  // Define SVG states
+  const hamburgerSvg = `<svg width="20" height="20" viewBox="0 0 20 20" preserveAspectRatio="none" class="h-full w-full"><path fill="transparent" stroke-width="2" stroke="white" stroke-linecap="round" d="M 0 3 L 20 3"></path><path fill="transparent" stroke-width="2" stroke="white" stroke-linecap="round" d="M 0 10 L 20 10" opacity="1"></path><path fill="transparent" stroke-width="2" stroke="white" stroke-linecap="round" d="M 7 17 L 20 17"></path></svg>`;
+  
+  const closeSvg = `<svg width="20" height="20" viewBox="0 0 20 20" preserveAspectRatio="none" class="h-full w-full"><path fill="transparent" stroke-width="2" stroke="white" stroke-linecap="round" d="M 3 17 L 17 3"></path><path fill="transparent" stroke-width="2" stroke="white" stroke-linecap="round" d="M 0 10 L 20 10" opacity="0"></path><path fill="transparent" stroke-width="2" stroke="white" stroke-linecap="round" d="M 3 3 L 17 17"></path></svg>`;
+  
   toggle.addEventListener('click', () => {
-    const open = menu.classList.toggle('site-nav-open');
-    menu.setAttribute('aria-expanded', open ? 'true' : 'false');
-    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    // Toggle scale-y classes for slide animation
+    const isOpen = menu.classList.contains('scale-y-100');
+    const menuItems = menu.querySelectorAll('li');
+    
+    if (isOpen) {
+      // Close menu
+      menu.classList.remove('scale-y-100');
+      menu.classList.add('scale-y-0');
+      menu.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Open menu');
+      toggle.innerHTML = hamburgerSvg;
+      
+      // Hide navigation items
+      menuItems.forEach((item, index) => {
+        item.classList.remove('translate-y-0', 'opacity-100');
+        item.classList.add('translate-y-[-100%]', 'opacity-0');
+      });
+    } else {
+      // Open menu
+      menu.classList.remove('scale-y-0');
+      menu.classList.add('scale-y-100');
+      menu.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-label', 'Close menu');
+      toggle.innerHTML = closeSvg;
+      
+      // Show navigation items with staggered animation
+      menuItems.forEach((item, index) => {
+        setTimeout(() => {
+          item.classList.remove('translate-y-[-100%]', 'opacity-0');
+          item.classList.add('translate-y-0', 'opacity-100');
+        }, index * 50); // 50ms stagger for each item
+      });
+    }
   });
 }
 
@@ -979,8 +1015,14 @@ function updateBookingUI(booking, property) {
         const guestDisplay = document.querySelector('.number-buttons span');
         const guests = guestDisplay ? parseInt(guestDisplay.textContent) : 2;
         
+        // Get arrival and departure dates from form inputs
+        const arrivalInput = document.getElementById(':r5:-form-item');
+        const departureInput = document.getElementById(':r6:');
+        const arrivalDate = arrivalInput ? arrivalInput.value : '';
+        const departureDate = departureInput ? departureInput.value : '';
+        
         // Navigate to reserve.html with parameters
-        const reserveUrl = `/reserve.html?id=${propertyId}&nights=${booking.nights}&guests=${guests}`;
+        const reserveUrl = `/reserve.html?id=${propertyId}&nights=${booking.nights}&guests=${guests}&arrival=${encodeURIComponent(arrivalDate)}&departure=${encodeURIComponent(departureDate)}`;
         window.location.href = reserveUrl;
       });
     }

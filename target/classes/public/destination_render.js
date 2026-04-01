@@ -5,34 +5,31 @@
 
 function escapeHtml(text) {
   return String(text)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 }
 
 function normalizeDescriptionText(s) {
-  return String(s)
-    .replace(/\r\n/g, '\n')
-    .replace(/\\n/g, '\n')
-    .trim();
+  return String(s).replace(/\r\n/g, "\n").replace(/\\n/g, "\n").trim();
 }
 
 function getPublicDescriptionSections(data) {
   const pd = data.publicDescription || {};
   const spec = [
     { heading: null, text: pd.summary },
-    { heading: 'The Space', text: pd.space },
-    { heading: 'Guest Access', text: pd.access },
-    { heading: 'Neighborhood', text: pd.neighborhood },
-    { heading: 'Other Things to Note', text: pd.notes },
-    { heading: 'Getting Around', text: pd.transit },
-    { heading: 'Guest Interactions', text: pd.interactionWithGuests },
-    { heading: 'House Rules', text: pd.houseRules },
+    { heading: "The Space", text: pd.space },
+    { heading: "Guest Access", text: pd.access },
+    { heading: "Neighborhood", text: pd.neighborhood },
+    { heading: "Other Things to Note", text: pd.notes },
+    { heading: "Getting Around", text: pd.transit },
+    { heading: "Guest Interactions", text: pd.interactionWithGuests },
+    { heading: "House Rules", text: pd.houseRules },
   ];
   const out = [];
   for (const { heading, text } of spec) {
-    if (typeof text !== 'string' || text.trim().length <= 2) continue;
+    if (typeof text !== "string" || text.trim().length <= 2) continue;
     const t = normalizeDescriptionText(text);
     if (t.length <= 2) continue;
     if (/^T[a-z0-9]{3,},?$/i.test(t)) continue;
@@ -43,69 +40,79 @@ function getPublicDescriptionSections(data) {
 
 function buildDescription(data) {
   const sections = getPublicDescriptionSections(data);
-  return sections
-    .map((s) => (s.heading ? `${s.heading}\n\n${s.text}` : s.text))
-    .join('\n\n') || data.title || '';
+  return (
+    sections
+      .map((s) => (s.heading ? `${s.heading}\n\n${s.text}` : s.text))
+      .join("\n\n") ||
+    data.title ||
+    ""
+  );
 }
 
 function renderTestimonialStars(rating) {
   const n = Math.min(5, Math.max(0, Math.round(Number(rating) || 5)));
   const starSvg = `<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" class="inline-block text-gold" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path></svg>`;
-  return Array.from({ length: n }, () => starSvg).join('');
+  return Array.from({ length: n }, () => starSvg).join("");
 }
 
 function getAverageRating(testimonials) {
   if (!Array.isArray(testimonials) || testimonials.length === 0) return 0;
   const validRatings = testimonials
-    .map(t => Number(t.rating))
-    .filter(r => !isNaN(r) && r > 0 && r <= 5);
+    .map((t) => Number(t.rating))
+    .filter((r) => !isNaN(r) && r > 0 && r <= 5);
   if (validRatings.length === 0) return 0;
   const sum = validRatings.reduce((acc, rating) => acc + rating, 0);
   return sum / validRatings.length;
 }
 
 function getReviewCount(reviews) {
-  if (reviews && typeof reviews.total === 'number') {
+  if (reviews && typeof reviews.total === "number") {
     return reviews.total;
   }
   return 0;
 }
 
 function generateImageSrcset(imageUrl) {
-  if (!imageUrl) return '';
-  const baseUrl = imageUrl.split('?')[0];
-  const params = imageUrl.includes('?') ? imageUrl.split('?')[1] : '';
-  
-  const sizes = [16, 32, 48, 64, 96, 128, 256, 384, 640, 750, 828, 1080, 1200, 1920, 2048, 3840];
+  if (!imageUrl) return "";
+  const baseUrl = imageUrl.split("?")[0];
+  const params = imageUrl.includes("?") ? imageUrl.split("?")[1] : "";
+
+  const sizes = [
+    16, 32, 48, 64, 96, 128, 256, 384, 640, 750, 828, 1080, 1200, 1920, 2048,
+    3840,
+  ];
   const srcset = sizes
-    .map(size => `${baseUrl}?w=${size}&q=75 ${size}w`)
-    .join(', ');
-  
+    .map((size) => `${baseUrl}?w=${size}&q=75 ${size}w`)
+    .join(", ");
+
   return srcset;
 }
 
 function renderDestinationCard(data, index) {
-  const title = escapeHtml(data.title || data.nickname || 'Property');
-  const nickname = escapeHtml(data.nickname || '');
+  const title = escapeHtml(data.title || data.nickname || "Property");
+  const nickname = escapeHtml(data.nickname || "");
   const bedrooms = data.bedrooms || 0;
   const bathrooms = data.bathrooms || 0;
   const accommodates = data.accommodates || 0;
   const description = buildDescription(data);
   const averageRating = data.reviews ? data.reviews.avg : 0;
   const reviewCount = getReviewCount(data.reviews);
-  
+
   // Get primary image
-  const primaryImage = data.pictures && data.pictures.length > 0 
-    ? data.pictures[0].original || data.pictures[0].url || ''
-    : '';
-  
-  const imageUrl = primaryImage.replace(/"/g, '&quot;');
+  const primaryImage =
+    data.pictures && data.pictures.length > 0
+      ? data.pictures[0].original || data.pictures[0].url || ""
+      : "";
+
+  const imageUrl = primaryImage.replace(/"/g, "&quot;");
   const srcset = generateImageSrcset(primaryImage);
-  const slug = data.slug || data._id || '';
-  
+  const slug = data.slug || data._id || "";
+
   // Generate destination URL
-  const destinationUrl = data._id ? `/destinations/villa.html?id=${data._id}` : '#';
-  
+  const destinationUrl = data._id
+    ? `/destinations/villa.html?id=${data._id}`
+    : "#";
+
   return `
                 <li class="group">
                   <div class="pb-[125%] relative group overflow-hidden">
@@ -195,7 +202,7 @@ function renderDestinationCard(data, index) {
                                     </g>
                                   </g>
                                 </svg>
-                                ${bedrooms} ${bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}
+                                ${bedrooms} ${bedrooms === 1 ? "Bedroom" : "Bedrooms"}
                               </div>
                               <div class="inline-flex">
                                 <svg
@@ -245,22 +252,28 @@ function renderDestinationCard(data, index) {
                                     </g>
                                   </g>
                                 </svg>
-                                ${bathrooms} ${bathrooms === 1 ? 'Bathroom' : 'Bathrooms'}
+                                ${bathrooms} ${bathrooms === 1 ? "Bathroom" : "Bathrooms"}
                               </div>
                             </div>
                           </div>
-                          ${reviewCount > 0 ? `
+                          ${
+                            reviewCount > 0
+                              ? `
                           <div class="mt-2 text-xs">
                             <span class="tracking-widest mr-3" 
                               >${renderTestimonialStars(averageRating)} <span style="margin: 0px 4px;"></span>  ${reviewCount} Reviews</span
                             >
-                          </div>` : ''}
+                          </div>`
+                              : ""
+                          }
                         </div>
                       </div>
                       <div
                         class="absolute inset-0 duration-7500 ease-out group-hover:scale-110"
                       >
-                        ${imageUrl ? `
+                        ${
+                          imageUrl
+                            ? `
                         <img
                           alt="${title}"
                           loading="lazy"
@@ -277,7 +290,9 @@ function renderDestinationCard(data, index) {
                             inset: 0px;
                             color: transparent;
                           "
-                        />` : ''}
+                        />`
+                            : ""
+                        }
                       </div>
                     </div>
                   </div>
@@ -288,61 +303,77 @@ async function initDestinations() {
   try {
     // Check for URL parameter and filter by city or tag
     const urlParams = new URLSearchParams(window.location.search);
-    const cityId = urlParams.get('id');
-    
+    const cityId = urlParams.get("id");
+
     let destinations = [];
-    
+
     if (cityId) {
       // Convert ID to city name (handle different formats)
-      let cityName = cityId.replace(/-/g, ' ').toLowerCase();
-      
+      let cityName = cityId.replace(/-/g, " ").toLowerCase();
+
       // Special mappings for specific IDs
       const idToCityMap = {
-        'malibu': 'Malibu',
-        'beverly hills': 'Beverly Hills', 
-        'los angeles': 'Los Angeles',
-        'fort lauderdale': 'Fort Lauderdale',
-        'malibu-suites': 'malibu'
+        malibu: "Malibu",
+        "beverly hills": "Beverly Hills",
+        "los angeles": "Los Angeles",
+        "fort lauderdale": "Fort Lauderdale",
+        "malibu-suites": "malibu",
       };
-      
+
       // Special handling for sa-suites - filter by tags
-      if (cityId === 'sa-suites') {
-        const response = await fetch('http://localhost/api/properties/tag/SA Beach Suites');
-        if (!response.ok) throw new Error('Failed to load properties by tag');
+      if (cityId === "sa-suites") {
+        const response = await fetch(
+          "/api/properties/tag/SA Beach Suites",
+        );
+        if (!response.ok) throw new Error("Failed to load properties by tag");
         destinations = await response.json();
-        
+
         if (destinations.length > 0) {
-          console.log(`Found ${destinations.length} properties with SA Beach Suites tag`);
+          console.log(
+            `Found ${destinations.length} properties with SA Beach Suites tag`,
+          );
           renderDestinations(destinations);
         } else {
-          console.log(`No properties found with SA Beach Suites tag, loading all properties`);
+          console.log(
+            `No properties found with SA Beach Suites tag, loading all properties`,
+          );
           await loadAllProperties();
         }
-      } else if (cityId === 'malibu-suites') {
-        const response = await fetch('http://localhost/api/properties/tag/Malibu Sand and Suites');
-        if (!response.ok) throw new Error('Failed to load properties by tag');
+      } else if (cityId === "malibu-suites") {
+        const response = await fetch(
+          "/api/properties/tag/Malibu Sand and Suites",
+        );
+        if (!response.ok) throw new Error("Failed to load properties by tag");
         destinations = await response.json();
-        
+
         if (destinations.length > 0) {
-          console.log(`Found ${destinations.length} properties with Malibu Sand and Suites tag`);
+          console.log(
+            `Found ${destinations.length} properties with Malibu Sand and Suites tag`,
+          );
           renderDestinations(destinations);
         } else {
-          console.log(`No properties found with Malibu Sand and Suites tag, loading all properties`);
+          console.log(
+            `No properties found with Malibu Sand and Suites tag, loading all properties`,
+          );
           await loadAllProperties();
         }
       } else {
         // Regular city filtering for other IDs
         cityName = idToCityMap[cityName] || cityName;
-        
-        const response = await fetch(`http://localhost/api/properties/city/${encodeURIComponent(cityName)}`);
-        if (!response.ok) throw new Error('Failed to load properties by city');
+
+        const response = await fetch(
+          `/api/properties/city/${encodeURIComponent(cityName)}`,
+        );
+        if (!response.ok) throw new Error("Failed to load properties by city");
         destinations = await response.json();
-        
+
         if (destinations.length > 0) {
           console.log(`Found ${destinations.length} properties in ${cityName}`);
           renderDestinations(destinations);
         } else {
-          console.log(`No properties found for city: ${cityName}, loading all properties`);
+          console.log(
+            `No properties found for city: ${cityName}, loading all properties`,
+          );
           await loadAllProperties();
         }
       }
@@ -350,76 +381,70 @@ async function initDestinations() {
       await loadAllProperties();
     }
   } catch (error) {
-    console.error('Error initializing destinations:', error);
+    console.error("Error initializing destinations:", error);
   }
 }
 
 async function loadAllProperties() {
-  const response = await fetch('http://localhost/api/properties');
-  if (!response.ok) throw new Error('Failed to load all properties');
+  const response = await fetch("/api/properties");
+  if (!response.ok) throw new Error("Failed to load all properties");
   const allProperties = await response.json();
-  const destinations = Array.isArray(allProperties) ? allProperties : [allProperties];
-  
+  const destinations = Array.isArray(allProperties)
+    ? allProperties
+    : [allProperties];
+
   if (!destinations.length) {
-    console.error('No destination data found from API');
+    console.error("No destination data found from API");
     return;
   }
-  
+
   console.log(`Loading ${destinations.length} destinations from API`);
   renderDestinations(destinations);
 }
 
 function renderDestinations(destinations) {
-  const destinationGrid = document.querySelector('.grid.mb-5.gap-5.sm\\:grid-cols-2.md\\:grid-cols-3.lg\\:grid-cols-4.text-white');
-  
+  const destinationGrid = document.querySelector(
+    ".grid.mb-5.gap-5.sm\\:grid-cols-2.md\\:grid-cols-3.lg\\:grid-cols-4.text-white",
+  );
+
   if (!destinationGrid) {
-    console.error('Destination grid container not found');
+    console.error("Destination grid container not found");
     return;
   }
-  
+
   // Sort destinations: first those without reviews, then by menuOrder, then by title
   const sortedDestinations = destinations.sort((a, b) => {
     const reviewCountA = getReviewCount(a.reviews);
     const reviewCountB = getReviewCount(b.reviews);
-    
+
     // Properties without reviews come first
     if (reviewCountA === 0 && reviewCountB > 0) return -1;
     if (reviewCountA > 0 && reviewCountB === 0) return 1;
-    
+
     // If both have reviews or both don't have reviews, sort by menuOrder
     const orderA = a.menuOrder || 999;
     const orderB = b.menuOrder || 999;
     if (orderA !== orderB) {
       return orderA - orderB;
     }
-    
+
     // Finally, sort by title
-    return (a.title || a.nickname || '').localeCompare(b.title || b.nickname || '');
+    return (a.title || a.nickname || "").localeCompare(
+      b.title || b.nickname || "",
+    );
   });
-  
+
   // Generate HTML for all destination cards
   const destinationsHtml = sortedDestinations
     .map((destination, index) => renderDestinationCard(destination, index))
-    .join('');
-  
+    .join("");
+
   // Update the grid with destination cards
   destinationGrid.innerHTML = destinationsHtml;
-  
+
   console.log(`Rendered ${sortedDestinations.length} destination cards`);
 }
 
-function initListingNav() {
-  const menu = document.getElementById('site-nav-menu');
-  const toggle = document.getElementById('site-nav-toggle');
-  if (!menu || !toggle) return;
-  toggle.addEventListener('click', () => {
-    const open = menu.classList.toggle('site-nav-open');
-    menu.setAttribute('aria-expanded', open ? 'true' : 'false');
-    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-  });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  initListingNav();
+document.addEventListener("DOMContentLoaded", () => {
   initDestinations();
 });

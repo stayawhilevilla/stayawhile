@@ -6,8 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const nights = urlParams.get("nights");
   const guests = urlParams.get("guests");
 
-  console.log("Reserve page parameters:", { propertyId, nights, guests });
-
   // Update booking summary fields
   updateBookingSummary(propertyId, nights, guests);
 
@@ -64,7 +62,7 @@ function updateBookingSummary(propertyId, nights, guests) {
       summaryText.textContent = `${nights} nights, ${guests} guests`;
     }
 
-    console.log("Booking summary updated:", { nights, guests });
+    console.log("Booking summary updated");
   } catch (error) {
     console.error("Error updating booking summary:", error);
   }
@@ -74,14 +72,17 @@ async function loadPropertyDetails(propertyId) {
   try {
     // Fetch property data from API
     const response = await fetch(
-      `http://localhost/api/properties/${propertyId}`,
+      `/api/properties/${propertyId}`,
     );
     if (!response.ok) {
       throw new Error("Failed to load property details");
     }
 
     const property = await response.json();
-    console.log("Property details loaded:", property);
+    console.log("Full address:", property.address.full);
+    
+    // Store property data globally for later use
+    window.propertyData = property;
 
     // Update property information on the page
     updatePropertyInfo(property);
@@ -127,16 +128,11 @@ function updatePropertyInfo(property) {
     });
 
     // Update property image
-    console.log("Property picture:", property.picture);
-    console.log("Property pictures:", property.pictures);
     const imageElements =
       document.querySelectorAll("[data-property-image]") ||
       document.querySelectorAll(".property-image");
-    console.log("Found image elements:", imageElements.length);
     
     imageElements.forEach((element, index) => {
-      console.log(`Processing image element ${index}:`, element);
-      
       // Handle both single picture object and pictures array
       let imageUrl = null;
       
@@ -154,23 +150,17 @@ function updatePropertyInfo(property) {
       }
       
       if (imageUrl) {
-        console.log("Setting image URL:", imageUrl);
-        
         // For img elements
         if (element.tagName === "IMG") {
           element.src = imageUrl;
           element.alt = property.title || property.nickname || "Property image";
-          console.log("Updated IMG element with src:", imageUrl);
         }
         // For div elements with background images
         else {
           element.style.backgroundImage = `url(${imageUrl})`;
           element.style.backgroundSize = "cover";
           element.style.backgroundPosition = "center";
-          console.log("Updated DIV element with background image:", imageUrl);
         }
-      } else {
-        console.log("No valid image URL found");
       }
     });
 
@@ -220,11 +210,7 @@ function updatePropertyInfo(property) {
       );
     }
 
-    console.log("Property information updated", {
-      maxGuests,
-      beds: property.bedrooms,
-      baths: property.bathrooms,
-    });
+    console.log("Property information updated");
   } catch (error) {
     console.error("Error updating property info:", error);
   }
@@ -232,20 +218,10 @@ function updatePropertyInfo(property) {
 
 function updatePricingDisplay(property, nights) {
   try {
-    // Debug the full property structure
-    console.log("Full property object:", property);
-    console.log("Property.prices:", property.prices);
-    console.log("Property.prices.cleaningFee:", property.prices?.cleaningFee);
-    console.log("Property.cleaningFee:", property.cleaningFee);
-
     const basePrice =
       property.prices.basePrice || property.basePrice || property.price || 0;
     const cleaningFee =
       property.prices.cleaningFee || property.cleaningFee || 0;
-
-    // Log cleaning fee for debugging
-    console.log("Cleaning fee from API:", cleaningFee);
-    console.log("Base price from API:", basePrice);
 
     // Calculate totals
     const accommodationTotal = basePrice * nights;
@@ -284,8 +260,6 @@ function updatePricingDisplay(property, nights) {
       "total-amount": formatCurrency(total),
     };
 
-    console.log("Formatted cleaning fee:", priceElements["cleaning-fee"]);
-
     Object.entries(priceElements).forEach(([selector, value]) => {
       const elements =
         document.querySelectorAll(`[data-${selector}]`) ||
@@ -294,126 +268,126 @@ function updatePricingDisplay(property, nights) {
         if (element) element.textContent = value;
       });
     });
-
-    console.log("Pricing display updated", { taxRate: taxRate * 100 });
   } catch (error) {
     console.error("Error updating pricing display:", error);
   }
 }
 
-// Form submission handler
 function handleReserveSubmit(event) {
   event.preventDefault();
 
-  // Get booking data
   const urlParams = new URLSearchParams(window.location.search);
   const bookingData = {
     propertyId: urlParams.get("id"),
     nights: urlParams.get("nights"),
     guests: urlParams.get("guests"),
-    // Add form fields as needed
   };
 
-  console.log("Reserve form submitted:", bookingData);
-
-  // Here you would typically send this to your booking API
-  // For now, just show a success message
   alert("Booking request submitted! We will contact you soon.");
 }
 
-// Add form submission listener
 document.addEventListener("DOMContentLoaded", () => {
-  console.log('🔧 DOM loaded, setting up form listener...');
-  
   const reserveForm =
     document.querySelector("#reserve-form") ||
     document.querySelector(".reserve-form") ||
     document.querySelector('form[id="details"]');
 
-  console.log('📝 Reserve form found:', reserveForm);
-
   if (reserveForm) {
     reserveForm.addEventListener("submit", function (event) {
-      console.log('🚀 Form submit event triggered!');
       event.preventDefault();
       
-      console.log('📊 About to populate dropbox data...');
-      // Populate dropbox with booking details
       populateDropboxData();
       
-      // Hide the details form
       const detailsForm = document.getElementById('details');
       if (detailsForm) {
         detailsForm.style.display = 'none';
-        console.log('✅ Details form hidden');
-      } else {
-        console.log('❌ Details form not found');
       }
       
       // Show the dropbox section
       const dropboxSection = document.getElementById('dropbox');
       if (dropboxSection) {
         dropboxSection.style.display = 'block';
-        console.log('✅ Dropbox section shown');
-      } else {
-        console.log('❌ Dropbox section not found');
+        
+        // Gradual smooth scroll for mobile compatibility
+        setTimeout(() => {
+          // Check if mobile device
+          const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+          
+          if (isMobile) {
+            // Mobile: Use gradual scroll animation
+            const startPosition = window.pageYOffset;
+            const distance = -startPosition;
+            const duration = 800; // 800ms for smooth gradual scroll
+            
+            let start = null;
+            function animation(currentTime) {
+              if (start === null) start = currentTime;
+              const timeElapsed = currentTime - start;
+              const run = easeInOutQuad(timeElapsed, startPosition, distance, duration);
+              window.scrollTo(0, run);
+              if (timeElapsed < duration) requestAnimationFrame(animation);
+            }
+            
+            // Easing function for smooth animation
+            function easeInOutQuad(t, b, c, d) {
+              t /= d/2;
+              if (t < 1) return c/2*t*t + b;
+              t--;
+              return -c/2 * (t*(t-2) - 1) + b;
+            }
+            
+            requestAnimationFrame(animation);
+          } else {
+            // Desktop: Use smooth scroll
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+          
+          // Fallback instant scroll
+          setTimeout(() => {
+            if (window.pageYOffset > 0) {
+              document.documentElement.scrollTop = 0;
+              document.body.scrollTop = 0;
+            }
+          }, 1000);
+        }, 150);
       }
-      
-      console.log("🎉 Form submission complete - showing dropbox, hiding details form");
     });
-  } else {
-    console.log('❌ No reserve form found!');
   }
 });
 
-// Function to populate dropbox with booking and property data
 function populateDropboxData() {
   try {
-    console.log('🚀 Starting dropbox data population...');
-    
-    // Get URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     const propertyId = urlParams.get("id") || '';
     const nights = urlParams.get("nights") || '';
     const guests = urlParams.get("guests") || '';
+    const arrival = urlParams.get("arrival") || '';
+    const departure = urlParams.get("departure") || '';
     
-    console.log('📋 URL Parameters:', { propertyId, nights, guests });
-    
-    // Get form data
     const formData = {};
     const form = document.getElementById('details');
-    console.log('📝 Form found:', form);
     
     if (form) {
       const inputs = form.querySelectorAll('input, select, textarea');
-      console.log('🔍 Found inputs:', inputs.length);
       inputs.forEach(input => {
         const value = input.value || '';
         const name = input.name || input.id || input.className;
         formData[name] = value;
-        console.log(`📊 Input ${name}: "${value}"`);
       });
     }
     
-    // Get property data from window (if available from previous fetch)
     const propertyData = window.propertyData || {};
-    console.log('🏠 Property data:', propertyData);
     
-    // Get pricing data from the page
     const pricingData = {
-      nights: document.querySelector('[data-booking-nights]')?.textContent || '',
       basePrice: document.querySelector('[data-base-price]')?.textContent || '',
       accommodationTotal: document.querySelector('[data-accommodation-total]')?.textContent || '',
       cleaningFee: document.querySelector('[data-cleaning-fee]')?.textContent || '',
-      processingFee: document.querySelector('[data-processing-fee]')?.textContent || '',
       damageWaiver: document.querySelector('[data-damage-waiver]')?.textContent || '',
       taxAmount: document.querySelector('[data-tax-amount]')?.textContent || '',
+      processingFee: document.querySelector('[data-processing-fee]')?.textContent || '',
       totalAmount: document.querySelector('[data-total-amount]')?.textContent || ''
     };
     
-    console.log('💰 Pricing data:', pricingData);
-    
-    // Create booking summary object
     const bookingSummary = {
       property: {
         id: propertyId,
@@ -426,8 +400,8 @@ function populateDropboxData() {
       booking: {
         nights: nights,
         guests: guests,
-        checkIn: formData.checkIn || '',
-        checkOut: formData.checkOut || '',
+        checkIn: arrival || formData.checkIn || '',
+        checkOut: departure || formData.checkOut || '',
         nightlyRate: pricingData.basePrice,
         accommodationTotal: pricingData.accommodationTotal,
         cleaningFee: pricingData.cleaningFee,
@@ -445,12 +419,8 @@ function populateDropboxData() {
       }
     };
     
-    // Store booking data for potential use
     window.bookingData = bookingSummary;
     
-    console.log('✅ Dropbox data populated:', bookingSummary);
-    
-    // Populate the HTML elements with the data
     populateBookingDocuments(bookingSummary);
     
   } catch (error) {
@@ -458,23 +428,17 @@ function populateDropboxData() {
   }
 }
 
-// Function to populate HTML documents with booking data
 function populateBookingDocuments(bookingData) {
   try {
-    console.log('📄 Populating booking documents...');
-    
-    // Populate booking confirmation table using specific classnames
     const guestNameElement = document.querySelector('.guest-name');
     if (guestNameElement && bookingData.guest.name) {
       guestNameElement.textContent = bookingData.guest.name;
-      console.log('✅ Guest name updated:', bookingData.guest.name);
     }
     
     const propertyAddressElement = document.querySelector('.property-address');
-    if (propertyAddressElement && bookingData.property.address) {
-      const address = `${bookingData.property.address.city || ''}, ${bookingData.property.address.state || ''}`.trim();
-      propertyAddressElement.textContent = address || '';
-      console.log('✅ Property address updated:', address);
+    console.log(window.propertyData)
+    if (propertyAddressElement && window.propertyData && window.propertyData.address) {
+      propertyAddressElement.textContent = window.propertyData.address.full;
     }
     
     const checkDatesElement = document.querySelector('.check-dates');
@@ -543,8 +507,20 @@ function populateBookingDocuments(bookingData) {
     // Populate footer guest name in the first document
     const footerGuestNameElement = document.querySelector('.footer-guest-name');
     if (footerGuestNameElement && bookingData.guest.name) {
-      footerGuestNameElement.textContent = `GUEST NAME: &nbsp; ${bookingData.guest.name}`;
+      footerGuestNameElement.textContent = `GUEST NAME:  ${bookingData.guest.name}`;
       console.log('✅ Footer guest name updated:', bookingData.guest.name);
+    }
+    
+    // Populate footer date
+    const footerDateElement = document.querySelector('.footer p:nth-child(3)');
+    if (footerDateElement) {
+      const currentDate = new Date().toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+      footerDateElement.textContent = `DATE: ${currentDate}`;
+      console.log('✅ Footer date updated:', currentDate);
     }
     
     // Populate rental agreement guest name
@@ -559,6 +535,18 @@ function populateBookingDocuments(bookingData) {
     if (signatureGuestNameElement && bookingData.guest.name) {
       signatureGuestNameElement.textContent = bookingData.guest.name;
       console.log('✅ Signature guest name updated:', bookingData.guest.name);
+    }
+    
+    // Populate signature section date
+    const signatureDateElement = document.querySelector('.signature-phone').previousElementSibling;
+    if (signatureDateElement && signatureDateElement.textContent.includes('Date:')) {
+      const currentDate = new Date().toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+      signatureDateElement.textContent = `Date: ${currentDate}`;
+      console.log('✅ Signature date updated:', currentDate);
     }
     
     // Populate signature section phone

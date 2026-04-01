@@ -81,4 +81,10 @@ public class VacationPropertyController {
         List<VacationProperty> properties = vacationPropertyService.getPropertiesByIndexRange(start, end);
         return ResponseEntity.ok(properties);
     }
+    
+    @GetMapping("/price/high-to-low")
+    public ResponseEntity<List<VacationProperty>> getPropertiesByPriceHighToLow() {
+        List<VacationProperty> properties = vacationPropertyService.getPropertiesByPriceHighToLow();
+        return ResponseEntity.ok(properties);
+    }
 }

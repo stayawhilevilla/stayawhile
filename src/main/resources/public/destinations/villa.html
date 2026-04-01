@@ -181,7 +181,7 @@
       /* Text slide-up animation */
       .text-slide-up {
         opacity: 0;
-        transform: translateY(100px) translateZ(0);
+        transform: translateY(50px) translateZ(0);
         transition:
           opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
           transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
@@ -230,33 +230,36 @@
       /* Initial hidden state for scroll animations */
       .scroll-animate {
         opacity: 0;
-        transform: translateY(100px) translateZ(0);
-        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        transform: translateY(50px) translateZ(0);
+        transition:
+          opacity 0.8s ease-out,
+          transform 0.8s ease-out;
       }
-      
+
       /* Visible state when scrolled into view */
       .scroll-animate.visible {
         opacity: 1;
         transform: translateY(0) translateZ(0);
       }
-      
+
       /* Staggered animation delays */
       .scroll-animate.delay-1 {
         transition-delay: 0.1s;
       }
-      
+
       .scroll-animate.delay-2 {
         transition-delay: 0.2s;
       }
-      
+
       .scroll-animate.delay-3 {
         transition-delay: 0.3s;
       }
-      
+
       .scroll-animate.delay-4 {
         transition-delay: 0.4s;
       }
     </style>
+    <script src="https://code.jivosite.com/widget/1DtF208Gdc" async></script>
   </head>
 
   <body style="overflow: auto">
@@ -316,6 +319,13 @@
               class="flex flex-row items-center text-[18px] lg:text-sm xl:text-[1.5vw] 2xl:text-[26px] font-normal"
             >
               STAY AWHILE VILLAS
+              <span>
+                <img
+                  src="/images/vip.png"
+                  alt=""
+                  style="width: 20px; height: 20px; margin-top: -4px"
+                />
+              </span>
             </div>
           </a>
         </div>
@@ -698,7 +708,7 @@
         <p class="text-subheading">gallery</p>
         <h2 class="mb-[50px]">
           Explore <span class="text-gold">Photos</span> of
-          <span id="gallery-nickname">Malibu Sand</span>
+          <span id="gallery-nickname"></span>
         </h2>
         <div class="relative" id="gallery-section">
           <div
@@ -716,16 +726,9 @@
                 class="object-cover object-center"
                 sizes="90vw"
                 srcset="
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=640&amp;q=75   640w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=750&amp;q=75   750w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=828&amp;q=75   828w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=1080&amp;q=75 1080w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=1200&amp;q=75 1200w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=1920&amp;q=75 1920w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=2048&amp;q=75 2048w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=3840&amp;q=75 3840w
+
                 "
-                src="/_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=3840&amp;q=75"
+                src=""
                 style="
                   position: absolute;
                   height: 100%;
@@ -745,16 +748,8 @@
                 class="object-cover object-center"
                 sizes="(max-width: 768px) 90vw, (max-width: 1020px) 390px, (max-width: 1180px) 485px, 570px"
                 srcset="
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Frwipf8w1ilrqgp0umyjz.jpg&amp;w=640&amp;q=75   640w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Frwipf8w1ilrqgp0umyjz.jpg&amp;w=750&amp;q=75   750w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Frwipf8w1ilrqgp0umyjz.jpg&amp;w=828&amp;q=75   828w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Frwipf8w1ilrqgp0umyjz.jpg&amp;w=1080&amp;q=75 1080w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Frwipf8w1ilrqgp0umyjz.jpg&amp;w=1200&amp;q=75 1200w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Frwipf8w1ilrqgp0umyjz.jpg&amp;w=1920&amp;q=75 1920w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Frwipf8w1ilrqgp0umyjz.jpg&amp;w=2048&amp;q=75 2048w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Frwipf8w1ilrqgp0umyjz.jpg&amp;w=3840&amp;q=75 3840w
                 "
-                src="/_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Frwipf8w1ilrqgp0umyjz.jpg&amp;w=3840&amp;q=75"
+                src=""
                 style="
                   position: absolute;
                   height: 100%;
@@ -774,16 +769,9 @@
                 class="object-cover object-center"
                 sizes="(max-width: 768px) 90vw, (max-width: 1020px) 390px, (max-width: 1180px) 485px, 570px"
                 srcset="
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428838%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fyzrjzs1ap5vkbeaqnr77.jpg&amp;w=640&amp;q=75   640w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428838%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fyzrjzs1ap5vkbeaqnr77.jpg&amp;w=750&amp;q=75   750w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428838%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fyzrjzs1ap5vkbeaqnr77.jpg&amp;w=828&amp;q=75   828w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428838%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fyzrjzs1ap5vkbeaqnr77.jpg&amp;w=1080&amp;q=75 1080w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428838%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fyzrjzs1ap5vkbeaqnr77.jpg&amp;w=1200&amp;q=75 1200w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428838%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fyzrjzs1ap5vkbeaqnr77.jpg&amp;w=1920&amp;q=75 1920w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428838%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fyzrjzs1ap5vkbeaqnr77.jpg&amp;w=2048&amp;q=75 2048w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428838%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fyzrjzs1ap5vkbeaqnr77.jpg&amp;w=3840&amp;q=75 3840w
+                  
                 "
-                src="/_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428838%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fyzrjzs1ap5vkbeaqnr77.jpg&amp;w=3840&amp;q=75"
+                src=""
                 style="
                   position: absolute;
                   height: 100%;
@@ -803,16 +791,9 @@
                 class="object-cover object-center"
                 sizes="(max-width: 768px) 90vw, (max-width: 1020px) 390px, (max-width: 1180px) 485px, 570px"
                 srcset="
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428466%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fio62rbq6ysjwftfud0c8.jpg&amp;w=640&amp;q=75   640w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428466%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fio62rbq6ysjwftfud0c8.jpg&amp;w=750&amp;q=75   750w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428466%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fio62rbq6ysjwftfud0c8.jpg&amp;w=828&amp;q=75   828w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428466%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fio62rbq6ysjwftfud0c8.jpg&amp;w=1080&amp;q=75 1080w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428466%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fio62rbq6ysjwftfud0c8.jpg&amp;w=1200&amp;q=75 1200w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428466%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fio62rbq6ysjwftfud0c8.jpg&amp;w=1920&amp;q=75 1920w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428466%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fio62rbq6ysjwftfud0c8.jpg&amp;w=2048&amp;q=75 2048w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428466%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fio62rbq6ysjwftfud0c8.jpg&amp;w=3840&amp;q=75 3840w
+                  
                 "
-                src="/_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428466%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fio62rbq6ysjwftfud0c8.jpg&amp;w=3840&amp;q=75"
+                src=""
                 style="
                   position: absolute;
                   height: 100%;
@@ -832,16 +813,8 @@
                 class="object-cover object-center"
                 sizes="(max-width: 768px) 90vw, (max-width: 1020px) 390px, (max-width: 1180px) 485px, 570px"
                 srcset="
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428435%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Foabgmnqcsrcak3kcaztr.jpg&amp;w=640&amp;q=75   640w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428435%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Foabgmnqcsrcak3kcaztr.jpg&amp;w=750&amp;q=75   750w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428435%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Foabgmnqcsrcak3kcaztr.jpg&amp;w=828&amp;q=75   828w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428435%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Foabgmnqcsrcak3kcaztr.jpg&amp;w=1080&amp;q=75 1080w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428435%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Foabgmnqcsrcak3kcaztr.jpg&amp;w=1200&amp;q=75 1200w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428435%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Foabgmnqcsrcak3kcaztr.jpg&amp;w=1920&amp;q=75 1920w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428435%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Foabgmnqcsrcak3kcaztr.jpg&amp;w=2048&amp;q=75 2048w,
-                  /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428435%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Foabgmnqcsrcak3kcaztr.jpg&amp;w=3840&amp;q=75 3840w
-                "
-                src="/_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1730428435%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Foabgmnqcsrcak3kcaztr.jpg&amp;w=3840&amp;q=75"
+                  "
+                src=""
                 style="
                   position: absolute;
                   height: 100%;
@@ -976,7 +949,22 @@
                 <div
                   class="absolute inset-y-4 left-0 flex flex-col w-12 items-center justify-center border-r border-r-current"
                 >
-                  <svg width="31" height="30" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="stroke-current w-6 h-6"><path d="M1 27.5439V18.2714C1 16.5634 2.3905 15.18 4.10725 15.18H9.28549M19.6435 1C22.1868 1 24.2469 3.05111 24.2469 5.57984C24.2469 8.10856 22.1853 10.1597 19.6435 10.1597M26.8927 15.1816C28.6095 15.1816 30 16.5649 30 18.2729V27.5454M23.7855 29H11.3565M15.9599 5.57984C15.9599 8.10921 13.8989 10.1597 11.3565 10.1597C8.81409 10.1597 6.75308 8.10921 6.75308 5.57984C6.75308 3.05046 8.81409 1 11.3565 1C13.8989 1 15.9599 3.05046 15.9599 5.57984ZM22.1744 19.7614C22.1744 22.2908 20.1134 24.3412 17.571 24.3412C15.0286 24.3412 12.9676 22.2908 12.9676 19.7614C12.9676 17.232 15.0286 15.1816 17.571 15.1816C20.1134 15.1816 22.1744 17.232 22.1744 19.7614Z" stroke-width="1.7" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                  <svg
+                    width="31"
+                    height="30"
+                    viewBox="0 0 31 30"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="stroke-current w-6 h-6"
+                  >
+                    <path
+                      d="M1 27.5439V18.2714C1 16.5634 2.3905 15.18 4.10725 15.18H9.28549M19.6435 1C22.1868 1 24.2469 3.05111 24.2469 5.57984C24.2469 8.10856 22.1853 10.1597 19.6435 10.1597M26.8927 15.1816C28.6095 15.1816 30 16.5649 30 18.2729V27.5454M23.7855 29H11.3565M15.9599 5.57984C15.9599 8.10921 13.8989 10.1597 11.3565 10.1597C8.81409 10.1597 6.75308 8.10921 6.75308 5.57984C6.75308 3.05046 8.81409 1 11.3565 1C13.8989 1 15.9599 3.05046 15.9599 5.57984ZM22.1744 19.7614C22.1744 22.2908 20.1134 24.3412 17.571 24.3412C15.0286 24.3412 12.9676 22.2908 12.9676 19.7614C12.9676 17.232 15.0286 15.1816 17.571 15.1816C20.1134 15.1816 22.1744 17.232 22.1744 19.7614Z"
+                      stroke-width="1.7"
+                      stroke-miterlimit="10"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                  </svg>
                 </div>
                 <div
                   class="number-wrapper pl-12 bg-tan border border-black/10"
@@ -1881,16 +1869,11 @@
                       class="pointer-events-none object-cover object-center"
                       sizes="100vw"
                       srcset="
-                        /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=640&amp;q=75   640w,
-                        /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=750&amp;q=75   750w,
-                        /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=828&amp;q=75   828w,
-                        /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=1080&amp;q=75 1080w,
-                        /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=1200&amp;q=75 1200w,
-                        /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=1920&amp;q=75 1920w,
-                        /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=2048&amp;q=75 2048w,
-                        /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=3840&amp;q=75 3840w
+                        
+                        
+                        
                       "
-                      src="/_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=3840&amp;q=75"
+                      src=""
                       style="
                         position: absolute;
                         height: 100%;
@@ -2081,11 +2064,11 @@
                 <li><a href="/owners.html">Owners</a></li>
                 <li><a href="/transportation.html">Transportation</a></li>
                 <li><a href="/black-label">Black Label Collection</a></li>
-                <li><a href="/blog">Media</a></li>
+                
                 <li><a href="/contact-us.html">Contact</a></li>
                 <li><a href="/destinations.html">Destinations</a></li>
-                <li><a href="/privacy-policy">Privacy Policy</a></li>
-                <li><a href="/terms-of-use">Terms of Use</a></li>
+                
+                
               </ul>
             </div>
             <div class="lg:w-[13%] sm:w-1/3 sm:px-2 lg:p-0">
@@ -2379,377 +2362,7 @@
         return false;
       }
 
-      // Update clear button visibility
-      function updateClearButtonVisibility() {
-        const clearBtn = document.getElementById("clear-dates-btn");
-        if (clearBtn) {
-          if (arrivalDate || departureDate) {
-            clearBtn.classList.remove("hidden");
-          } else {
-            clearBtn.classList.add("hidden");
-          }
-        }
-      }
-
-      // Clear dates function
-      function clearDates(event) {
-        event.preventDefault();
-        event.stopPropagation();
-
-        // Clear date variables
-        arrivalDate = null;
-        departureDate = null;
-
-        // Clear input values
-        if (arrivalInput) {
-          arrivalInput.value = "";
-        }
-        if (departureInput) {
-          departureInput.value = "";
-        }
-
-        // Close shared date picker
-        if (sharedPicker) {
-          sharedPicker.container.style.display = "none";
-        }
-
-        // Hide clear button
-        updateClearButtonVisibility();
-      }
-
-      // Date Picker Functionality
-      const arrivalInput = document.getElementById(":r5:-form-item");
-      const departureInput = document.getElementById(":r6:");
-      const dateContainer = document.querySelector(".flex.bg-tan.border"); // Container holding both inputs
-      let arrivalDate = null;
-      let departureDate = null;
-      let currentDisplayMonth = new Date().getMonth();
-      let currentDisplayYear = new Date().getFullYear();
-
-      // Create shared date picker container
-      function createSharedDatePicker() {
-        const container = document.createElement("div");
-        container.className = "custom-datepicker";
-
-        // Add month navigation header
-        const navHeader = document.createElement("div");
-        navHeader.className = "calendar-nav-header";
-        navHeader.style.cssText = `
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 12px;
-          padding: 0 4px;
-        `;
-
-        const prevButton = document.createElement("button");
-        prevButton.innerHTML = "‹";
-        prevButton.className = "calendar-nav-btn";
-        prevButton.style.cssText = `
-          background: none;
-          border: none;
-          font-size: 18px;
-          cursor: pointer;
-          padding: 4px 8px;
-          border-radius: 4px;
-        `;
-        prevButton.addEventListener("click", () => navigateMonth(-1));
-
-        const monthYearDisplay = document.createElement("div");
-        monthYearDisplay.className = "calendar-month-year";
-        monthYearDisplay.style.cssText = `
-          font-weight: 600;
-          font-size: 14px;
-          color: #374151;
-        `;
-
-        const nextButton = document.createElement("button");
-        nextButton.innerHTML = "›";
-        nextButton.className = "calendar-nav-btn";
-        nextButton.style.cssText = `
-          background: none;
-          border: none;
-          font-size: 18px;
-          cursor: pointer;
-          padding: 4px 8px;
-          border-radius: 4px;
-        `;
-        nextButton.addEventListener("click", () => navigateMonth(1));
-
-        navHeader.appendChild(prevButton);
-        navHeader.appendChild(monthYearDisplay);
-        navHeader.appendChild(nextButton);
-
-        const calendar = document.createElement("div");
-        calendar.className = "calendar-grid";
-
-        container.appendChild(navHeader);
-        container.appendChild(calendar);
-        dateContainer.appendChild(container); // Append to shared container
-
-        return { container, calendar, monthYearDisplay };
-      }
-
-      // Month navigation function
-      function navigateMonth(direction) {
-        currentDisplayMonth += direction;
-
-        if (currentDisplayMonth < 0) {
-          currentDisplayMonth = 11;
-          currentDisplayYear--;
-        } else if (currentDisplayMonth > 11) {
-          currentDisplayMonth = 0;
-          currentDisplayYear++;
-        }
-
-        // Refresh calendar with new month
-        const selectedDate =
-          sharedPicker.activeInput === "arrival" ? arrivalDate : departureDate;
-        const minDate =
-          sharedPicker.activeInput === "departure" && arrivalDate
-            ? new Date(arrivalDate.setDate(arrivalDate.getDate() + 2))
-            : null;
-
-        generateCalendar(
-          sharedPicker.calendar,
-          currentDisplayYear,
-          currentDisplayMonth,
-          selectedDate,
-          minDate,
-        );
-
-        // Update month/year display
-        const monthNames = [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December",
-        ];
-        sharedPicker.monthYearDisplay.textContent = `${monthNames[currentDisplayMonth]} ${currentDisplayYear}`;
-      }
-
-      const sharedPicker = createSharedDatePicker();
-
-      function generateCalendar(
-        calendar,
-        year,
-        month,
-        selectedDate,
-        minDate = null,
-      ) {
-        calendar.innerHTML = "";
-
-        // Add day headers
-        const dayHeaders = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
-        dayHeaders.forEach((day) => {
-          const header = document.createElement("div");
-          header.textContent = day;
-          header.style.fontWeight = "bold";
-          header.style.textAlign = "center";
-          header.style.padding = "4px";
-          header.style.fontSize = "12px";
-          header.style.color = "#6b7280";
-          calendar.appendChild(header);
-        });
-
-        // Get first day of month and number of days
-        const firstDay = new Date(year, month, 1).getDay();
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-        // Add empty cells for days before month starts
-        for (let i = 0; i < firstDay; i++) {
-          const empty = document.createElement("div");
-          calendar.appendChild(empty);
-        }
-
-        // Add days of month
-        for (let day = 1; day <= daysInMonth; day++) {
-          const dayButton = document.createElement("button");
-          dayButton.textContent = day;
-
-          const currentDate = new Date(year, month, day);
-
-          // Disable dates before today
-          const today = new Date();
-          today.setHours(0, 0, 0, 0);
-          if (currentDate < today) {
-            dayButton.disabled = true;
-          }
-
-          // Disable dates before arrival date for departure picker
-          if (minDate && currentDate < minDate) {
-            dayButton.disabled = true;
-          }
-
-          // Highlight selected date
-          if (
-            selectedDate &&
-            currentDate.getDate() === selectedDate.getDate() &&
-            currentDate.getMonth() === selectedDate.getMonth() &&
-            currentDate.getFullYear() === selectedDate.getFullYear()
-          ) {
-            dayButton.style.background = "#fbbf24";
-            dayButton.style.color = "white";
-          }
-
-          dayButton.addEventListener("click", () => {
-            onDateSelect(currentDate, sharedPicker.activeInput || "arrival");
-          });
-
-          dayButton.style.cssText = `
-            padding: 4px 6px;
-            background: white;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            border: none;
-            border-radius: 4px;
-            font-size: 12px;
-          `;
-
-          calendar.appendChild(dayButton);
-        }
-      }
-
-      function onDateSelect(date, type) {
-        if (type === "arrival") {
-          arrivalDate = date;
-          arrivalInput.value = date.toLocaleDateString("en-US", {
-            month: "short",
-            day: "numeric",
-            year: "numeric",
-          });
-          sharedPicker.container.style.display = "none";
-
-          // Reset departure date if it's before arrival date
-          if (departureDate && departureDate <= arrivalDate) {
-            departureDate = null;
-            departureInput.value = "";
-          }
-        } else {
-          departureDate = date;
-          departureInput.value = date.toLocaleDateString("en-US", {
-            month: "short",
-            day: "numeric",
-            year: "numeric",
-          });
-          sharedPicker.container.style.display = "none";
-        }
-
-        // Update clear button visibility
-        updateClearButtonVisibility();
-
-        // If arrival date is set, automatically show departure picker with 2-day minimum
-        if (arrivalDate && type === "arrival") {
-          setTimeout(() => {
-            const minDepartureDate = new Date(arrivalDate);
-            minDepartureDate.setDate(arrivalDate.getDate() + 2); // Add 2 days
-            showDatePicker("departure", minDepartureDate);
-          }, 100); // Small delay to ensure calendar is closed first
-        }
-      }
-
-      function showDatePicker(inputType, minDate = null) {
-        // Reset display to current month when opening picker
-        const today = new Date();
-        currentDisplayMonth = today.getMonth();
-        currentDisplayYear = today.getFullYear();
-
-        const selectedDate =
-          inputType === "arrival" ? arrivalDate : departureDate;
-
-        generateCalendar(
-          sharedPicker.calendar,
-          currentDisplayYear,
-          currentDisplayMonth,
-          selectedDate,
-          minDate,
-        );
-
-        // Update month/year display
-        const monthNames = [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December",
-        ];
-        sharedPicker.monthYearDisplay.textContent = `${monthNames[currentDisplayMonth]} ${currentDisplayYear}`;
-
-        sharedPicker.container.style.display = "block";
-
-        // Store which input is active
-        sharedPicker.activeInput = inputType;
-      }
-
-      // Add click handlers to date inputs
-      if (arrivalInput) {
-        arrivalInput.addEventListener("click", (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          showDatePicker("arrival");
-        });
-        arrivalInput.addEventListener("focus", (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          showDatePicker("arrival");
-        });
-        arrivalInput.addEventListener("keydown", (e) => {
-          e.preventDefault();
-        });
-      }
-
-      if (departureInput) {
-        departureInput.addEventListener("click", (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          // Always use 2-day minimum for departure
-          const minDepartureDate = arrivalDate ? new Date(arrivalDate) : null;
-          if (minDepartureDate) {
-            minDepartureDate.setDate(arrivalDate.getDate() + 2);
-          }
-          showDatePicker("departure", minDepartureDate);
-        });
-        departureInput.addEventListener("focus", (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          // Always use 2-day minimum for departure
-          const minDepartureDate = arrivalDate ? new Date(arrivalDate) : null;
-          if (minDepartureDate) {
-            minDepartureDate.setDate(arrivalDate.getDate() + 2);
-          }
-          showDatePicker("departure", minDepartureDate);
-        });
-        departureInput.addEventListener("keydown", (e) => {
-          e.preventDefault();
-        });
-      }
-
-      // Close date pickers when clicking outside
-      document.addEventListener("click", (e) => {
-        if (
-          !sharedPicker.container.contains(e.target) &&
-          e.target !== arrivalInput &&
-          e.target !== departureInput
-        ) {
-          sharedPicker.container.style.display = "none";
-        }
-      });
-
+      
       // Additional Fees Toggle Functionality
       const additionalFeesToggle = document.getElementById(
         "additional-fees-toggle",
@@ -2975,52 +2588,55 @@
     </script>
 
     <script src="../property_render.js" defer=""></script>
-    
+    <script src="../calendar.js" defer=""></script>
+
     <!-- Scroll Animation Script -->
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener("DOMContentLoaded", function () {
         // Elements to animate (text only - no images or ul)
-        const animateElements = document.querySelectorAll('section h2, section h3, section p, section > div > div:not(:has(img))');
-        
+        const animateElements = document.querySelectorAll(
+          "section h2, section h3, section p, section > div > div:not(:has(img))",
+        );
+
         // Add scroll-animate class to elements that don't already have inline styles
         animateElements.forEach((element, index) => {
           // Skip elements that already have animation styles
-          if (!element.style.opacity || element.style.opacity === '1') {
-            element.classList.add('scroll-animate');
-            
+          if (!element.style.opacity || element.style.opacity === "1") {
+            element.classList.add("scroll-animate");
+
             // Add staggered delays
-            if (index % 4 === 1) element.classList.add('delay-1');
-            else if (index % 4 === 2) element.classList.add('delay-2');
-            else if (index % 4 === 3) element.classList.add('delay-3');
-            else if (index % 4 === 0) element.classList.add('delay-4');
+            if (index % 4 === 1) element.classList.add("delay-1");
+            else if (index % 4 === 2) element.classList.add("delay-2");
+            else if (index % 4 === 3) element.classList.add("delay-3");
+            else if (index % 4 === 0) element.classList.add("delay-4");
           }
         });
 
         // Intersection Observer for scroll animations
         const observerOptions = {
           threshold: 0.1,
-          rootMargin: '0px 0px -50px 0px'
+          rootMargin: "0px 0px -50px 0px",
         };
 
         const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
+          entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
+              entry.target.classList.add("visible");
             }
           });
         }, observerOptions);
 
         // Observe all scroll-animate elements
-        document.querySelectorAll('.scroll-animate').forEach(el => {
+        document.querySelectorAll(".scroll-animate").forEach((el) => {
           observer.observe(el);
         });
 
         // Handle elements that are already visible on page load
         setTimeout(() => {
-          document.querySelectorAll('.scroll-animate').forEach(el => {
+          document.querySelectorAll(".scroll-animate").forEach((el) => {
             const rect = el.getBoundingClientRect();
             if (rect.top < window.innerHeight && rect.bottom > 0) {
-              el.classList.add('visible');
+              el.classList.add("visible");
             }
           });
         }, 100);

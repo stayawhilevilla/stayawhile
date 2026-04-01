@@ -119,7 +119,7 @@
       /* Initial hidden state for scroll animations */
       .scroll-animate {
         opacity: 0;
-        transform: translateY(100px) translateZ(0);
+        transform: translateY(50px) translateZ(0);
         transition:
           opacity 0.8s ease-out,
           transform 0.8s ease-out;
@@ -148,7 +148,9 @@
         transition-delay: 0.4s;
       }
     </style>
+    <script src="https://code.jivosite.com/widget/1DtF208Gdc" async></script>
   </head>
+
   <link rel="stylesheet" href="sticky-form.css" />
   <style id="listing-static-nav">
     @media (max-width: 1023px) {
@@ -270,6 +272,8 @@
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
   </style>
+
+  
   <body>
     <header class="z-[100] fixed top-0 left-0 w-full">
       <div
@@ -315,6 +319,7 @@
       </div>
       <div
         id="sticky-form-nav"
+        style="background-color: rgba(0, 0, 0, 0.273)"
         class="flex relative px-5 xl:px-12 py-4 w-full justify-center lg:justify-between items-center text-white"
       >
         <div class="flex flex-row items-center font-normal">
@@ -323,6 +328,13 @@
               class="flex flex-row items-center text-[18px] lg:text-sm xl:text-[1.5vw] 2xl:text-[26px] font-normal"
             >
               STAY AWHILE VILLAS
+              <span>
+                <img
+                  src="/images/vip.png"
+                  alt=""
+                  style="width: 20px; height: 20px; margin-top: -4px"
+                />
+              </span>
             </div>
           </a>
         </div>
@@ -677,16 +689,16 @@
         <div id="sticky-form-container" class="p-5 pb-8 lg:pb-5">
           <form class="flex flex-wrap text-dark/50 justify-center sticky z-50">
             <div
-              class="w-full lg:max-w-[275px] relative after:content-[''] after:bg-dark/10 after:inset-y-3 after:w-[1px] after:absolute after:z-[2]"
+              class="w-full lg:max-w-[275px] relative after:content-[''] after:bg-dark/10 after:inset-y-3 after:w-[1px] after:absolute after:z-[2] shadow-lg"
             >
               <div
                 class="after:bottom-0 after:right-0 after:w-full after:h-[1px] lg:after:h-auto relative after:content-[''] after:bg-dark/10 lg:after:inset-y-3 lg:after:w-[1px] after:absolute after:z-[2] bg-white h-full"
               >
                 <button
                   type="button"
-                  class="px-8 py-4 border-transparent focus:border-transparent w-full bg-transparent h-full justify-between flex items-center select-none text-[0.875rem] leading-[1.25rem]"
+                  class="px-8 py-4 border-transparent focus:border-transparent w-full bg-transparent h-full justify-between flex items-center select-none text-[0.875rem] leading-[1.25rem] hover:text-gold transition-all duration-300"
                 >
-                  <span>Destinations</span>
+                  <span class="font-medium">Destinations</span>
                   <svg
                     stroke="currentColor"
                     fill="none"
@@ -983,15 +995,23 @@
           class="container relative text-center z-[1] mt-[-50px] mb-[150px] sm:mb-[60px] sm:mt-0"
         >
           <div class="" style="opacity: 1; transform: none">
-            <p class="text-subheading">Stay AWHILE villas</p>
+            <p class="text-subheading" style="color: white">
+              Stay AWHILE
+              <span style="color: #e0b642; font-weight: bold"
+                >Premium Perks</span
+              >
+            </p>
           </div>
           <div class="" style="opacity: 1; transform: none">
             <div class="max-w-[800px] mx-auto text-black">
-              <h1>WHERE HOME FEELS like an escape</h1>
+              <h1 style="color: white">WHERE HOME FEELS like an escape</h1>
             </div>
           </div>
         </div>
         <div class="absolute inset-0" style="opacity: 0.965151">
+          <!-- Dark overlay -->
+          <div class="absolute inset-0 bg-black opacity-spc z-10"></div>
+
           <img
             alt="Malibu Sand by Stay Awhile Villas"
             loading="lazy"
@@ -999,10 +1019,8 @@
             data-nimg="fill"
             class="animate-fade-in-up absolute inset-0 object-cover object-center lg:object-[center_0%] xl:object-[center_12%]"
             sizes="100vw"
-            srcset="
-              https://wordpress.stayawhile.com/wp-content/uploads/2023/04/AustynMoreno-22-scaled.jpg
-            "
-            src="https://wordpress.stayawhile.com/wp-content/uploads/2023/04/AustynMoreno-22-scaled.jpg"
+            srcset="/images/be983139.avif"
+            src="/images/be983139.avif"
             style="
               position: absolute;
               height: 100%;
@@ -1013,17 +1031,27 @@
           />
         </div>
       </div>
-      <section class="py-[100px]">
+      <section
+        class="py-[100px]"
+        style="
+          z-index: 99 !important;
+          position: relative;
+          background-color: white;
+        "
+      >
         <div class="container">
           <div class="lg:max-w-[90%]">
             <div class="" style="opacity: 1; transform: none">
-              <p class="text-subheading">collections</p>
+              <p class="text-subheading">Exclusive Collections</p>
             </div>
             <div class="" style="opacity: 1; transform: none">
               <div>
                 <h2>
                   Discover
-                  <span style="color: #b89535">One of A Kind</span> Vacations
+                  <span style="color: #b89535; font-weight: 300"
+                    >One of A Kind</span
+                  >
+                  <span style="color: #e0b642">Premium</span> Vacations
                 </h2>
               </div>
             </div>
@@ -1047,16 +1075,8 @@
                   class="object-cover object-center"
                   sizes="(max-width: 1023px) 100vw, 96vw"
                   srcset="
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fh_200%2Cc_fit%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=640&amp;q=75   640w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fh_200%2Cc_fit%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=750&amp;q=75   750w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fh_200%2Cc_fit%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=828&amp;q=75   828w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fh_200%2Cc_fit%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=1080&amp;q=75 1080w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fh_200%2Cc_fit%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=1200&amp;q=75 1200w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fh_200%2Cc_fit%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=1920&amp;q=75 1920w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fh_200%2Cc_fit%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=2048&amp;q=75 2048w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fh_200%2Cc_fit%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=3840&amp;q=75 3840w
                   "
-                  src="/_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fh_200%2Cc_fit%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=3840&amp;q=75"
+                  src=""
                   style="
                     position: absolute;
                     height: 100%;
@@ -1077,16 +1097,8 @@
                   class="object-cover object-center"
                   sizes="(max-width: 1023px) 100vw, 96vw"
                   srcset="
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fh_200%2Cc_fit%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=640&amp;q=75   640w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fh_200%2Cc_fit%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=750&amp;q=75   750w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fh_200%2Cc_fit%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=828&amp;q=75   828w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fh_200%2Cc_fit%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=1080&amp;q=75 1080w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fh_200%2Cc_fit%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=1200&amp;q=75 1200w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fh_200%2Cc_fit%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=1920&amp;q=75 1920w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fh_200%2Cc_fit%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=2048&amp;q=75 2048w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fh_200%2Cc_fit%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=3840&amp;q=75 3840w
                   "
-                  src="/_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fh_200%2Cc_fit%2Fv1742801234%2Fproduction%2F5aff29ca5e0f84006a37cb5d%2Fsinlgwufwjkv9ewusndl.jpg&amp;w=3840&amp;q=75"
+                  src=""
                   style="
                     position: absolute;
                     height: 100%;
@@ -1126,23 +1138,15 @@
                 class="w-full img-clipped overflow-hidden lg:brightness-[0.6] lg:absolute h-full left-0 top-0 lg:group-hover:brightness-[1]"
               >
                 <img
-                  alt="Malibu Rocky Oaks"
+                  alt="Malibu Sand"
                   loading="lazy"
                   decoding="async"
                   data-nimg="fill"
                   class="object-cover object-center"
                   sizes="(max-width: 1023px) 100vw, 96vw"
                   srcset="
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fc_fit%2Ch_200%2Fnw2jqa5c0l8k2mhwjmkc%3F_a%3DBAMCcSGi0&amp;w=640&amp;q=75   640w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fc_fit%2Ch_200%2Fnw2jqa5c0l8k2mhwjmkc%3F_a%3DBAMCcSGi0&amp;w=750&amp;q=75   750w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fc_fit%2Ch_200%2Fnw2jqa5c0l8k2mhwjmkc%3F_a%3DBAMCcSGi0&amp;w=828&amp;q=75   828w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fc_fit%2Ch_200%2Fnw2jqa5c0l8k2mhwjmkc%3F_a%3DBAMCcSGi0&amp;w=1080&amp;q=75 1080w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fc_fit%2Ch_200%2Fnw2jqa5c0l8k2mhwjmkc%3F_a%3DBAMCcSGi0&amp;w=1200&amp;q=75 1200w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fc_fit%2Ch_200%2Fnw2jqa5c0l8k2mhwjmkc%3F_a%3DBAMCcSGi0&amp;w=1920&amp;q=75 1920w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fc_fit%2Ch_200%2Fnw2jqa5c0l8k2mhwjmkc%3F_a%3DBAMCcSGi0&amp;w=2048&amp;q=75 2048w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fc_fit%2Ch_200%2Fnw2jqa5c0l8k2mhwjmkc%3F_a%3DBAMCcSGi0&amp;w=3840&amp;q=75 3840w
                   "
-                  src="/_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fc_fit%2Ch_200%2Fnw2jqa5c0l8k2mhwjmkc%3F_a%3DBAMCcSGi0&amp;w=3840&amp;q=75"
+                  src=""
                   style="
                     position: absolute;
                     height: 100%;
@@ -1156,23 +1160,15 @@
                 class="hidden lg:block img-outer relative lg:absolute w-full overflow-hidden h-full left-0 top-0 -z-[2] lg:group-hover:z-[2] transition-transform duration-7500 ease-out group-hover:scale-105"
               >
                 <img
-                  alt="Malibu Rocky Oaks"
+                  alt="Malibu Sand"
                   loading="lazy"
                   decoding="async"
                   data-nimg="fill"
                   class="object-cover object-center"
                   sizes="(max-width: 1023px) 100vw, 96vw"
                   srcset="
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fc_fit%2Ch_200%2Fnw2jqa5c0l8k2mhwjmkc%3F_a%3DBAMCcSGi0&amp;w=640&amp;q=75   640w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fc_fit%2Ch_200%2Fnw2jqa5c0l8k2mhwjmkc%3F_a%3DBAMCcSGi0&amp;w=750&amp;q=75   750w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fc_fit%2Ch_200%2Fnw2jqa5c0l8k2mhwjmkc%3F_a%3DBAMCcSGi0&amp;w=828&amp;q=75   828w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fc_fit%2Ch_200%2Fnw2jqa5c0l8k2mhwjmkc%3F_a%3DBAMCcSGi0&amp;w=1080&amp;q=75 1080w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fc_fit%2Ch_200%2Fnw2jqa5c0l8k2mhwjmkc%3F_a%3DBAMCcSGi0&amp;w=1200&amp;q=75 1200w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fc_fit%2Ch_200%2Fnw2jqa5c0l8k2mhwjmkc%3F_a%3DBAMCcSGi0&amp;w=1920&amp;q=75 1920w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fc_fit%2Ch_200%2Fnw2jqa5c0l8k2mhwjmkc%3F_a%3DBAMCcSGi0&amp;w=2048&amp;q=75 2048w,
-                    /_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fc_fit%2Ch_200%2Fnw2jqa5c0l8k2mhwjmkc%3F_a%3DBAMCcSGi0&amp;w=3840&amp;q=75 3840w
                   "
-                  src="/_next/image?url=https%3A%2F%2Fassets.guesty.com%2Fimage%2Fupload%2Fc_fit%2Ch_200%2Fnw2jqa5c0l8k2mhwjmkc%3F_a%3DBAMCcSGi0&amp;w=3840&amp;q=75"
+                  src=""
                   style="
                     position: absolute;
                     height: 100%;
@@ -1187,20 +1183,18 @@
               >
                 <a
                   class="absolute inset-0 z-10"
-                  href="/destinations/5fff40498bdb1e003061b540"
+                  href="/destinations/6113e18bb93f1d002d529c18"
                   ><span class="sr-only">Go to listing</span></a
                 >
                 <div
                   class="p-[20px] absolute bottom-0 w-full lg:group-hover:opacity-50 lg:group-hover:backdrop-blur-[2px] lg:group-hover:bg-dark"
                 >
                   <p
-                    class="pointer-events-none mt-2 block truncate text-sm uppercase tracking-[0.2em] mb-1 text-white text-slide-up"
+                    class="mt-2 block truncate text-sm uppercase tracking-[0.2em] mb-1 text-white text-slide-up"
                   >
-                    Malibu Rocky Oaks
+                    Malibu Sand
                   </p>
-                  <p
-                    class="pointer-events-none block text-sm text-white text-slide-up"
-                  >
+                  <p class="block text-sm text-white text-slide-up">
                     Malibu, California
                   </p>
                 </div>
@@ -1385,21 +1379,32 @@
           </ul>
         </div>
       </section>
-      <section class="py-[100px]">
+      <section
+        class="py-[100px]"
+        style="
+          z-index: 99 !important;
+          position: relative;
+          background-color: white;
+        "
+      >
         <div class="container text-center">
           <div class="border px-5 border-[rgba(0,0,0,0.1)] py-[75px]">
             <div class="" style="opacity: 1; transform: none">
               <p class="text-subheading">Born to inspire</p>
             </div>
             <div class="" style="opacity: 1; transform: none">
-              <h2>Discover <span class="text-gold">Your Destination</span></h2>
+              <h2>
+                Discover
+                <span class="text-gold font-light">Your Dream</span> Destination
+              </h2>
             </div>
             <div class="" style="opacity: 1; transform: none">
               <a
-                class="button block sm:inline-block"
+                class="button block sm:inline-block border border-gold hover:bg-gold hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl"
                 href="/destination-discovery.html"
                 ><span
-                  >Experience the Destination Designer
+                  >Experience Your
+                  <span class="font-semibold">Dream</span> Destination
                   <svg
                     stroke="currentColor"
                     fill="currentColor"
@@ -1419,17 +1424,26 @@
           </div>
         </div>
       </section>
-      <section class="py-[100px]">
+      <section
+        class="py-[100px]"
+        style="
+          z-index: 99 !important;
+          position: relative;
+          background-color: white;
+        "
+      >
         <div class="container">
           <div class="lg:max-w-[90%]">
             <div class="" style="opacity: 1; transform: none">
-              <p class="text-subheading">collections</p>
+              <p class="text-subheading">Premium Collections</p>
             </div>
             <div class="" style="opacity: 1; transform: none">
               <div>
                 <h2>
                   Create memories to
-                  <span style="color: #b89535">Last a Lifetime</span>
+                  <span style="color: #b89535; font-weight: 300"
+                    >Last a Lifetime</span
+                  >
                 </h2>
               </div>
             </div>
@@ -1782,7 +1796,14 @@
           </ul>
         </div>
       </section>
-      <div class="py-[100px]">
+      <div
+        class="py-[100px]"
+        style="
+          z-index: 99 !important;
+          position: relative;
+          background-color: white;
+        "
+      >
         <div class="relative w-full px-5 lg:px-0">
           <div
             class="pb-[100%] relative w-full top-0 mb-[75px] lg:mb-0 lg:w-[50%] lg:h-full lg:absolute lg:pb-0 left-0"
@@ -1893,7 +1914,12 @@
       </div>
       <div
         class="relative overflow-hidden cursor-pointer"
-        style="padding-bottom: 56.25%"
+        style="
+          padding-bottom: 56.25%;
+          z-index: 99 !important;
+          position: relative;
+          background-color: white;
+        "
       >
         <div
           class="absolute inset-0 flex flex-col items-center justify-center z-[3] cursor-pointer"
@@ -1955,7 +1981,14 @@
           controls
         ></video>
       </div>
-      <div class="py-[100px]">
+      <div
+        class="py-[100px]"
+        style="
+          z-index: 99 !important;
+          position: relative;
+          background-color: white;
+        "
+      >
         <div class="relative w-full px-5 lg:px-0">
           <div
             class="pb-[100%] relative w-full top-0 mb-[75px] lg:mb-0 lg:w-[50%] lg:h-full lg:absolute lg:pb-0 right-0"
@@ -2070,6 +2103,12 @@
 
       <div
         class="relative flex justify-center items-center mb-12 lg:mb-24 container py-12 lg:py-24"
+        style="
+          z-index: 99 !important;
+          position: relative;
+          background-color: white;
+          margin-bottom: 0px;
+        "
       >
         <div class="w-full md:flex">
           <div
@@ -2231,7 +2270,11 @@
         </div>
       </div>
     </main>
-    <footer class="site-footer" aria-labelledby="footer-heading">
+    <footer
+      class="site-footer"
+      aria-labelledby="footer-heading"
+      style="background-color: white"
+    >
       <div class="text-center lg:text-left bg-tan">
         <h2 id="footer-heading" class="sr-only">Footer</h2>
         <div
@@ -2258,12 +2301,12 @@
                 <li><a href="/concierge.html">Concierge</a></li>
                 <li><a href="/owners.html">Owners</a></li>
                 <li><a href="/transportation.html">Transportation</a></li>
-                <li><a href="/black-label.html">Black Label Collection</a></li>
-                <li><a href="/blog">Media</a></li>
+                
+                
                 <li><a href="/contact-us.html">Contact</a></li>
                 <li><a href="/destinations.html">Destinations</a></li>
-                <li><a href="/privacy-policy">Privacy Policy</a></li>
-                <li><a href="/terms-of-use">Terms of Use</a></li>
+                
+                
               </ul>
             </div>
             <div class="lg:w-[13%] sm:w-1/3 sm:px-2 lg:p-0">
@@ -2514,6 +2557,56 @@
         el.style.transform = "translateY(0)";
       });
     }, 2000);
+
+    // Image rotation script - continuously change images every 5 seconds
+    function initImageRotation() {
+      const images = [
+        "images/9ca45a5a.avif",
+        "images/be983139.avif",
+        "images/516c28bf.avif",
+      ];
+
+      let currentIndex = 0;
+
+      function updateImages() {
+        const mainImage = document.querySelector(
+          'img[alt*="Malibu Sand"], img[alt*="Hollywoodland"], img[alt*="Malibu Reserve"], img[alt*="Chateau"], img[alt*="Jetliner"], img[alt*="Brentwood"]',
+        );
+
+        // Debug: Check what image we found
+        if (mainImage) {
+          console.log("🎯 Found image:", mainImage.alt);
+
+          // Update src and srcset with current image (no animations)
+          const currentImage = images[currentIndex];
+          mainImage.src = currentImage;
+          mainImage.srcset = `
+            /${currentImage} 100vw,
+            /${currentImage} 200vw,
+            /${currentImage} 400vw,
+            /${currentImage} 600vw,
+            /${currentImage} 800vw,
+            /${currentImage} 1200vw
+          `;
+
+          // Move to next image
+          currentIndex = (currentIndex + 1) % images.length;
+
+          console.log(`✅ Updated image to: ${currentImage}`);
+        } else {
+          console.log("❌ No image found with current selector");
+        }
+      }
+
+      // Update immediately
+      updateImages();
+
+      // Then update every 5 seconds
+      setInterval(updateImages, 5000);
+    }
+
+    // Initialize image rotation
+    initImageRotation();
 
     // Mobile Dropdown Functionality for Destinations and Concierge
     function initMobileDropdowns() {

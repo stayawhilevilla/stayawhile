@@ -2774,6 +2774,9 @@ select {
 .opacity-50 {
   opacity: 0.5;
 }
+.opacity-spc {
+  opacity: 0.2;
+}
 .opacity-60 {
   opacity: 0.6;
 }

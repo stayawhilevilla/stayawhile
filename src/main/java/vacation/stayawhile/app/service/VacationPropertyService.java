@@ -65,4 +65,11 @@ public class VacationPropertyService {
         
         return allProperties.subList(startIndex, endIndex + 1);
     }
+    
+    public List<VacationProperty> getPropertiesByPriceHighToLow() {
+        return vacationPropertyRepository.findAll().stream()
+                .filter(property -> property.getPrices() != null && property.getPrices().getBasePrice() > 0)
+                .sorted((p1, p2) -> Double.compare(p2.getPrices().getBasePrice(), p1.getPrices().getBasePrice()))
+                .collect(java.util.stream.Collectors.toList());
+    }
 }
