@@ -33,7 +33,13 @@ function populatePropertyCards(bookings) {
   const nearbyHeading = document.getElementById("nearby-properties-heading");
   const cityName = bookings[0].property.address.city;
   nearbyHeading.innerHTML = `Explore more places in <span class="text-gold">${cityName}</span>`;
+
+
   
+  
+  document.getElementById("stays").innerHTML = createPropertyCard(bookings[0]).outerHTML;
+  console.log("spc",createPropertyCard(bookings[0]))
+
   initNearbyProperties(bookings[0].property);
   // Populate booking details for the first booking
   if (bookings.length > 0) {
@@ -140,6 +146,7 @@ function updatePropertyCard(booking, cardIndex) {
 
 // Create a new property card element
 function createPropertyCard(booking) {
+  console.log("spc", booking)
   const property = booking.property || {};
   const title = property.title || property.name || "Property";
   const image =
@@ -149,7 +156,7 @@ function createPropertyCard(booking) {
   const bathrooms = property.bathrooms || 0;
   const reviews = property.reviews?.total || property.reviews || 0;
   const link = `/stays.html?id=${property._id || booking.id}`;
-  console.log(property.picture);
+  
 
   const cardTemplate = `
     <li class="group">
@@ -341,7 +348,7 @@ function createPropertyCard(booking) {
     </li>
   `;
 
-  const tempDiv = document.createElement("div");
+  let tempDiv = document.createElement("div");
   tempDiv.innerHTML = cardTemplate;
   return tempDiv.firstElementChild;
 }
@@ -779,8 +786,10 @@ async function initDashboard() {
   await loadCurrentUser();
   const bookings = await loadUserBookings();
   console.log("📋 BOOKINGS:", bookings); // Debug bookings
+
   populatePropertyCards(bookings);
 
+  
   
 
   fetchProperties();
