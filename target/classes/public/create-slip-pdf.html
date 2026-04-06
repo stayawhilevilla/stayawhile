@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Payment Receipt</title>
+
+<style>
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 40px;
+    color: #000;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: auto;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #000;
+    padding-bottom: 10px;
+  }
+
+  .title {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .small {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .section {
+    margin-top: 25px;
+  }
+
+  .flex {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+
+  td {
+    padding: 8px 0;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .right {
+    text-align: right;
+  }
+
+  .total-row td {
+    border-top: 2px solid #000;
+    font-weight: bold;
+  }
+
+  .summary {
+    margin-top: 25px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div class="title">PAYMENT RECEIPT</div>
+    <div class="small">
+      Date: April 6, 2026<br>
+      Receipt No: RCPT-177543986181287
+    </div>
+  </div>
+
+  <div class="section flex small">
+  <div>
+    <div class="label">Payer</div>
+    Kyle S.<br>
+    kyle9103@outlook.com
+  </div>
+
+  <div>
+    <div class="label">Payee</div>
+    Stay Awhile Villas<br>
+    book@stayawhile.vip
+  </div>
+
+  <div>
+    <div class="label">Booking Details</div>
+    Booking ID: BK177543986181287<br>
+    Property: Casa di Pietra, Malibu<br>
+    Stay: May 20 – June 4, 2026
+  </div>
+</div>
+
+  <table>
+    <tr>
+      <td>Part Payment Received</td>
+      <td class="right">$20,000.00</td>
+    </tr>
+    <tr>
+      <td>Total Booking Amount</td>
+      <td class="right">$62,317.57</td>
+    </tr>
+    <tr class="total-row">
+      <td>Balance Remaining</td>
+      <td class="right">$42,317.57</td>
+    </tr>
+  </table>
+
+  <div class="summary">
+    <strong>Payment Method:</strong> ACH Transfer<br>
+    <strong>Transaction ID:</strong> TXN-98456321<br><br>
+
+    This receipt confirms that a partial payment of $20,000.00 has been received 
+    toward the above booking. The remaining balance is due as per agreed terms.
+  </div>
+
+</div>
+
+</body>
+</html>

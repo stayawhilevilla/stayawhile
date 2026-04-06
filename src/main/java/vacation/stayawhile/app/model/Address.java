@@ -9,8 +9,10 @@ public class Address {
     private String country;
     @Column(name = "full_address", columnDefinition = "TEXT")
     private String full;
-    private double lat;
-    private double lng;
+    @Column(nullable = true)
+    private Double lat;
+    @Column(nullable = true)
+    private Double lng;
     private String state;
     private String street;
 
@@ -40,19 +42,19 @@ public class Address {
         this.full = full;
     }
 
-    public double getLat() {
+    public Double getLat() {
         return lat;
     }
 
-    public void setLat(double lat) {
+    public void setLat(Double lat) {
         this.lat = lat;
     }
 
-    public double getLng() {
+    public Double getLng() {
         return lng;
     }
 
-    public void setLng(double lng) {
+    public void setLng(Double lng) {
         this.lng = lng;
     }
 

@@ -212,14 +212,14 @@ function initListingNav() {
   const closeSvg = `<svg width="20" height="20" viewBox="0 0 20 20" preserveAspectRatio="none" class="h-full w-full"><path fill="transparent" stroke-width="2" stroke="white" stroke-linecap="round" d="M 3 17 L 17 3"></path><path fill="transparent" stroke-width="2" stroke="white" stroke-linecap="round" d="M 0 10 L 20 10" opacity="0"></path><path fill="transparent" stroke-width="2" stroke="white" stroke-linecap="round" d="M 3 3 L 17 17"></path></svg>`;
 
   toggle.addEventListener("click", () => {
-    // Toggle scale-y classes for slide animation
-    const isOpen = menu.classList.contains("scale-y-100");
+    // Toggle translate-x classes for slide animation
+    const isOpen = menu.classList.contains("translate-x-0");
     const menuItems = menu.querySelectorAll("li");
 
     if (isOpen) {
-      // Close menu
-      menu.classList.remove("scale-y-100");
-      menu.classList.add("scale-y-0");
+      // Close menu - slide to right
+      menu.classList.remove("translate-x-0");
+      menu.classList.add("translate-x-full");
       menu.setAttribute("aria-expanded", "false");
       toggle.setAttribute("aria-label", "Open menu");
       toggle.innerHTML = hamburgerSvg;
@@ -230,10 +230,10 @@ function initListingNav() {
         item.classList.add("translate-y-[-100%]", "opacity-0");
       });
     } else {
-      // Open menu
+      // Open menu - slide from right
       console.log("Okay")
-      menu.classList.remove("scale-y-0");
-      menu.classList.add("scale-y-100");
+      menu.classList.remove("translate-x-full");
+      menu.classList.add("translate-x-0");
       menu.setAttribute("aria-expanded", "true");
       toggle.setAttribute("aria-label", "Close menu");
       toggle.innerHTML = closeSvg;

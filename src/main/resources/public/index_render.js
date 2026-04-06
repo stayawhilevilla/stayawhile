@@ -1,3 +1,9 @@
+const host = window.location.hostname;
+
+if (host.startsWith("bookings.")) {
+  window.location.href = "/sign-in.html";
+}
+
 // Index Render - Load first 8 properties from API
 document.addEventListener("DOMContentLoaded", async function () {
   initListingNav();
