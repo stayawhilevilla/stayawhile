@@ -1244,6 +1244,7 @@
             style="padding-top: 90px !important; display: block !important"
           >
             <div
+              id="user-info"
               style="
                 padding: 16px;
                 font-size: 12px;
@@ -1251,8 +1252,8 @@
                 box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.407);
               "
             >
-              <div>Hi, Samuel</div>
-              <div>bigelon47@gmail.com</div>
+              <div>Loading...</div>
+              <div></div>
             </div>
             <li
               class="relative leading-10 lg:inline-block lg:leading-10 uppercase translate-y-[-100%] opacity-0 lg:translate-y-0 lg:opacity-100 transition duration-600 ease-[cubic-bezier(0.22, 1, 0.36, 1)]"
@@ -2010,7 +2011,7 @@
                 </div>
                 <div class="grid grid-cols-2 gap-5 text-3xl relative">
                   <div class="uppercase">TOTAL</div>
-                  <div class="text-right">$23,949.25</div>
+                  <div id="property-price" class="text-right">$23,949.25</div>
                 </div>
                 <hr class="my-8 border-dark/10" />
               </div>
@@ -2608,5 +2609,41 @@
     document
       .getElementById("tab-stays")
       .addEventListener("click", () => switchTab("tab-stays"));
+  </script>
+
+  <!-- User Info Script -->
+  <script>
+    // Update user info display
+    function updateUserInfo(user) {
+      const userInfoDiv = document.getElementById('user-info');
+      if (userInfoDiv) {
+        userInfoDiv.innerHTML = `
+          <div>Hi, ${user.firstName || user.name || "User"}</div>
+          <div>${user.email || ""}</div>
+        `;
+      }
+    }
+
+    // Fetch current user data
+    async function loadCurrentUser() {
+      try {
+        const res = await fetch("/api/users/1", {
+          headers: { Accept: "application/json" },
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        const user = data.data || data.user || data;
+        updateUserInfo(user);
+        return user;
+      } catch (err) {
+        console.warn("[Stays] Could not load user:", err.message);
+        return null;
+      }
+    }
+
+    // Load user data when page loads
+    document.addEventListener("DOMContentLoaded", function() {
+      loadCurrentUser();
+    });
   </script>
 </html>
