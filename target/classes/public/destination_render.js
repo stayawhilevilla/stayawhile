@@ -11,6 +11,15 @@ function escapeHtml(text) {
     .replace(/"/g, "&quot;");
 }
 
+// Normalise a tag for comparison: lowercase + collapse special chars to spaces
+function normalizeTag(t) {
+  return String(t)
+    .toLowerCase()
+    .replace(/[^a-z0-9 ]/g, " ")  // replace /, ', etc. with space
+    .replace(/\s+/g, " ")          // collapse multiple spaces
+    .trim();
+}
+
 function normalizeDescriptionText(s) {
   return String(s).replace(/\r\n/g, "\n").replace(/\\n/g, "\n").trim();
 }
@@ -301,84 +310,84 @@ function renderDestinationCard(data, index) {
 
 async function initDestinations() {
   try {
-    // Check for URL parameter and filter by city or tag
     const urlParams = new URLSearchParams(window.location.search);
-    const cityId = urlParams.get("id");
+    const destParam    = urlParams.get("dest");
+    const guestsParam  = urlParams.get("guests");
+    const bedroomsParam = urlParams.get("bedrooms");
+    const tagsParam    = urlParams.get("tags");
 
-    let destinations = [];
+    console.log("dest:", destParam, "guests:", guestsParam,
+                "bedrooms:", bedroomsParam, "tags:", tagsParam);
 
-    if (cityId) {
-      // Convert ID to city name (handle different formats)
-      let cityName = cityId.replace(/-/g, " ").toLowerCase();
+    const response = await fetch("/api/properties");
+    if (!response.ok) throw new Error("Failed to load properties");
+    let allProperties = await response.json();
+    if (!Array.isArray(allProperties)) allProperties = [allProperties];
 
-      // Special mappings for specific IDs
-      const idToCityMap = {
-        malibu: "Malibu",
-        "beverly hills": "Beverly Hills",
-        "los angeles": "Los Angeles",
-        "fort lauderdale": "Fort Lauderdale",
-        "malibu-suites": "malibu",
-      };
+    // Build filter criteria
+    const allowedDests = destParam && destParam.toLowerCase() !== "all" && destParam.trim() !== ""
+      ? destParam.toLowerCase().split(",").map((c) => c.trim())
+      : null;
 
-      // Special handling for sa-suites - filter by tags
-      if (cityId === "sa-suites") {
-        const response = await fetch(
-          "/api/properties/tag/SA Beach Suites",
-        );
-        if (!response.ok) throw new Error("Failed to load properties by tag");
-        destinations = await response.json();
+    const allowedTags = tagsParam
+      ? tagsParam.split(",").map((t) => normalizeTag(t)).filter(Boolean)
+      : null;
 
-        if (destinations.length > 0) {
-          console.log(
-            `Found ${destinations.length} properties with SA Beach Suites tag`,
-          );
-          renderDestinations(destinations);
-        } else {
-          console.log(
-            `No properties found with SA Beach Suites tag, loading all properties`,
-          );
-          await loadAllProperties();
-        }
-      } else if (cityId === "malibu-suites") {
-        const response = await fetch(
-          "/api/properties/tag/Malibu Sand and Suites",
-        );
-        if (!response.ok) throw new Error("Failed to load properties by tag");
-        destinations = await response.json();
+    const hasFilter = allowedDests || allowedTags || guestsParam || bedroomsParam;
 
-        if (destinations.length > 0) {
-          console.log(
-            `Found ${destinations.length} properties with Malibu Sand and Suites tag`,
-          );
-          renderDestinations(destinations);
-        } else {
-          console.log(
-            `No properties found with Malibu Sand and Suites tag, loading all properties`,
-          );
-          await loadAllProperties();
-        }
-      } else {
-        // Regular city filtering for other IDs
-        cityName = idToCityMap[cityName] || cityName;
+    if (!hasFilter) {
+      console.log(`Loading all ${allProperties.length} destinations`);
+      renderDestinations(allProperties);
+      return;
+    }
 
-        const response = await fetch(
-          `/api/properties/city/${encodeURIComponent(cityName)}`,
-        );
-        if (!response.ok) throw new Error("Failed to load properties by city");
-        destinations = await response.json();
+    const destinations = allProperties.filter((p) => {
+      const city     = (p.address?.city || "").toLowerCase();
+      const propTags = (p.tags || []).map((tag) => normalizeTag(tag));
 
-        if (destinations.length > 0) {
-          console.log(`Found ${destinations.length} properties in ${cityName}`);
-          renderDestinations(destinations);
-        } else {
-          console.log(
-            `No properties found for city: ${cityName}, loading all properties`,
-          );
-          await loadAllProperties();
+      // --- Destination (city / collection tag) filter ---
+      if (allowedDests) {
+        const destMatch = allowedDests.some((dest) => {
+          if (dest === "sa beach suites")       return propTags.includes("sa beach suites");
+          if (dest === "malibu sand and suites") return propTags.includes("malibu sand and suites");
+          return city === dest;
+        });
+        if (!destMatch) return false;
+      }
+
+      // --- Amenity tags filter (property must have ALL selected tags) ---
+      if (allowedTags && allowedTags.length > 0) {
+        const hasAll = allowedTags.every((tag) => propTags.includes(tag));
+        if (!hasAll) return false;
+      }
+
+      // --- Bedrooms filter (exact match; skipped when param is absent, "all", or 0) ---
+      if (bedroomsParam && bedroomsParam.toLowerCase() !== "all") {
+        const required = parseInt(bedroomsParam);
+        if (required > 0) {
+          const actual = parseInt(p.bedrooms) || 0;
+          console.log("Bedrooms — property:", actual, "required:", required);
+          if (actual !== required) return false;
         }
       }
+
+      // --- Guests filter (must accommodate at least N guests) ---
+      if (guestsParam) {
+        const required = parseInt(guestsParam);
+        const actual   = parseInt(p.accommodates) || 0;
+        console.log("Guests — property:", actual, "required:", required);
+        if (actual < required) return false;
+      }
+
+      return true;
+    });
+
+    if (destinations.length > 0) {
+      console.log(`Found ${destinations.length} properties matching filters`);
+      renderDestinations(destinations);
     } else {
-      await loadAllProperties();
+      console.log("No properties matched the current filters");
+      showNoResultsMessage();
     }
   } catch (error) {
     console.error("Error initializing destinations:", error);
@@ -402,15 +411,30 @@ async function loadAllProperties() {
   renderDestinations(destinations);
 }
 
+function showNoResultsMessage() {
+  const destinationGrid = document.getElementById("destination-grid");
+  const noResultsMessage = document.getElementById("no-results-message");
+
+  if (destinationGrid && noResultsMessage) {
+    destinationGrid.style.display = "none";
+    noResultsMessage.style.display = "flex";
+  }
+}
+
 function renderDestinations(destinations) {
-  const destinationGrid = document.querySelector(
-    ".grid.mb-5.gap-5.sm\\:grid-cols-2.md\\:grid-cols-3.lg\\:grid-cols-4.text-white",
-  );
+  const destinationGrid = document.getElementById("destination-grid");
+  const noResultsMessage = document.getElementById("no-results-message");
 
   if (!destinationGrid) {
     console.error("Destination grid container not found");
     return;
   }
+
+  // Hide no results message and show grid
+  if (noResultsMessage) {
+    noResultsMessage.style.display = "none";
+  }
+  destinationGrid.style.display = "grid";
 
   // Sort destinations: first those without reviews, then by menuOrder, then by title
   const sortedDestinations = destinations.sort((a, b) => {

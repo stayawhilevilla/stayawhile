@@ -19,6 +19,8 @@ async function loadUserBookings() {
 }
 
 // Update user info display
+
+
 function updateUserInfo(user) {
   const userInfoDiv = document.querySelector('[style*="padding: 16px"]');
   if (userInfoDiv) {
@@ -789,10 +791,12 @@ async function initDashboard() {
 
   populatePropertyCards(bookings);
 
-  
-  
-
   fetchProperties();
+
+  // Initialize form interactive elements
+  initGuestCounter();
+  initBedroomCounter();
+  initSearchButton();
 }
 
 // Expose functions globally
@@ -803,3 +807,180 @@ window.fetchProperties = fetchProperties;
 window.populatePropertyCards = populatePropertyCards;
 window.populateRecentlyViewed = populateRecentlyViewed;
 window.currentUser = currentUser;
+
+function initGuestCounter() {
+  const numberWrappers = document.querySelectorAll('#sticky-form-container .number-wrapper');
+  let guestWrapper = null;
+  
+  numberWrappers.forEach(wrapper => {
+    const label = wrapper.querySelector('.number-label');
+    if (label && label.textContent.trim().toLowerCase() === 'guests') {
+      guestWrapper = wrapper;
+    }
+  });
+
+  if (!guestWrapper) return;
+
+  const buttons = guestWrapper.querySelectorAll('.number-buttons button');
+  if (buttons.length < 2) return;
+  
+  let plusBtn, minusBtn;
+  if (buttons[0].textContent.includes('+')) {
+      plusBtn = buttons[0];
+      minusBtn = buttons[1];
+  } else {
+      plusBtn = buttons[1];
+      minusBtn = buttons[0];
+  }
+  
+  const span = guestWrapper.querySelector('.number-buttons span');
+
+  if (!plusBtn || !minusBtn || !span) return;
+
+  let count = parseInt(span.textContent) || 2;
+  const maxGuests = 20;
+
+  plusBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (count < maxGuests) {
+      count++;
+    } else {
+      count = 1;
+    }
+    span.textContent = count;
+  });
+
+  minusBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (count > 1) {
+      count--;
+    } else {
+      count = maxGuests;
+    }
+    span.textContent = count;
+  });
+}
+
+function initBedroomCounter() {
+  const numberWrappers = document.querySelectorAll('#sticky-form-container .number-wrapper');
+  let bedroomWrapper = null;
+  
+  numberWrappers.forEach(wrapper => {
+    const label = wrapper.querySelector('.number-label');
+    if (label && label.textContent.trim().toLowerCase() === 'bedrooms') {
+      bedroomWrapper = wrapper;
+    }
+  });
+
+  if (!bedroomWrapper) return;
+
+  const buttons = bedroomWrapper.querySelectorAll('.number-buttons button');
+  if (buttons.length < 2) return;
+  
+  let plusBtn, minusBtn;
+  if (buttons[0].textContent.includes('+')) {
+      plusBtn = buttons[0];
+      minusBtn = buttons[1];
+  } else {
+      plusBtn = buttons[1];
+      minusBtn = buttons[0];
+  }
+  
+  const span = bedroomWrapper.querySelector('.number-buttons span');
+
+  if (!plusBtn || !minusBtn || !span) return;
+
+  let count = span.textContent.trim().toLowerCase() === 'all' ? 10 : (parseInt(span.textContent) || 10);
+
+  plusBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (count < 10) {
+      count++;
+    } else {
+      count = 1;
+    }
+    span.textContent = count === 10 ? 'All' : count;
+  });
+
+  minusBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (count > 1) {
+      count--;
+    } else {
+      count = 10;
+    }
+    span.textContent = count === 10 ? 'All' : count;
+  });
+}
+
+function initSearchButton() {
+  const searchForm = document.querySelector('#sticky-form-container form');
+  if (!searchForm) return;
+
+  searchForm.addEventListener('submit', (e) => {
+    e.preventDefault(); // Prevent page reload so loader stays visible
+
+    // Collect data
+    const selectedDestinations = [];
+    const checkboxButtons = document.querySelectorAll('button[role="checkbox"]');
+    checkboxButtons.forEach(button => {
+        if (button.getAttribute('data-state') === 'checked') {
+            const locationName = button.id.replace(/-\d+$/, '');
+            selectedDestinations.push(locationName);
+        }
+    });
+
+    const dest = selectedDestinations.length > 0 ? selectedDestinations.join(',') : 'all';
+    const arrival = document.getElementById(':r1:-form-item')?.value || '';
+    const departure = document.getElementById(':r2:')?.value || '';
+
+    let guests = '2';
+    let bedrooms = 'All';
+    const numberWrappers = document.querySelectorAll('#sticky-form-container .number-wrapper');
+    numberWrappers.forEach(wrapper => {
+      const label = wrapper.querySelector('.number-label');
+      if (label && label.textContent.trim().toLowerCase() === 'guests') {
+        guests = wrapper.querySelector('span')?.textContent || '2';
+      }
+      if (label && label.textContent.trim().toLowerCase() === 'bedrooms') {
+        bedrooms = wrapper.querySelector('span')?.textContent || 'All';
+      }
+    });
+
+    const submitBtn = searchForm.querySelector('button[type="submit"]');
+    if (submitBtn) {
+      submitBtn.innerHTML = `
+        <svg
+          width="auto"
+          viewBox="0 0 120 30"
+          class="fill-current"
+          style="height: 0.8rem !important; z-index: 2; position: relative"
+        >
+          <circle cx="15" cy="15" r="15">
+            <animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite"></animate>
+            <animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite"></animate>
+          </circle>
+          <circle cx="60" cy="15" r="9" fill-opacity="0.3">
+            <animate attributeName="r" from="9" to="9" begin="0s" dur="0.8s" values="9;15;9" calcMode="linear" repeatCount="indefinite"></animate>
+            <animate attributeName="fill-opacity" from="0.5" to="0.5" begin="0s" dur="0.8s" values=".5;1;.5" calcMode="linear" repeatCount="indefinite"></animate>
+          </circle>
+          <circle cx="105" cy="15" r="15">
+            <animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite"></animate>
+            <animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite"></animate>
+          </circle>
+        </svg>
+      `;
+    }
+
+    setTimeout(() => {
+      const queryParams = new URLSearchParams({
+        dest: dest,
+        arrival: arrival,
+        departure: departure,
+        guests: guests,
+        bedrooms: bedrooms
+      });
+      window.location.href = `/destinations.html?${queryParams.toString()}`;
+    }, 2000);
+  });
+}

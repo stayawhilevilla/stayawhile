@@ -16,9 +16,21 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initCalendar() {
-  const arrivalInput = document.getElementById(":r5:-form-item");
-  const departureInput = document.getElementById(":r6:");
-  const dateContainer = document.querySelector(".flex.bg-tan.border");
+  let arrivalInput = document.getElementById(":r5:-form-item");
+  let departureInput = document.getElementById(":r6:");
+  let dateContainer = document.querySelector(".flex.bg-tan.border");
+
+  window.isIndexPage = false;
+
+  if (!arrivalInput || !departureInput || !dateContainer) {
+    arrivalInput = document.getElementById(":r1:-form-item");
+    departureInput = document.getElementById(":r2:");
+    if (arrivalInput) {
+        const flexWrapper = arrivalInput.closest('.flex');
+        if (flexWrapper) dateContainer = flexWrapper.parentElement;
+    }
+    window.isIndexPage = true;
+  }
 
   if (!arrivalInput || !departureInput || !dateContainer) {
     console.warn('Calendar inputs not found');
@@ -36,12 +48,16 @@ function initCalendar() {
 function createSharedDatePicker(dateContainer) {
   const container = document.createElement("div");
   container.className = "custom-datepicker";
+  if (window.isIndexPage) {
+    container.style.top = "-50px";
+  }
 
   // Add month navigation header
   const navHeader = document.createElement("div");
   navHeader.className = "calendar-nav-header";
 
   const prevButton = document.createElement("button");
+  prevButton.type = "button";
   prevButton.innerHTML = "‹";
   prevButton.className = "calendar-nav-btn";
   prevButton.addEventListener("click", () => navigateMonth(-1));
@@ -50,6 +66,7 @@ function createSharedDatePicker(dateContainer) {
   monthYearDisplay.className = "calendar-month-year";
 
   const nextButton = document.createElement("button");
+  nextButton.type = "button";
   nextButton.innerHTML = "›";
   nextButton.className = "calendar-nav-btn";
   nextButton.addEventListener("click", () => navigateMonth(1));
@@ -150,6 +167,7 @@ function generateCalendar(
   // Add days of month
   for (let day = 1; day <= daysInMonth; day++) {
     const dayButton = document.createElement("button");
+    dayButton.type = "button";
     dayButton.textContent = day;
 
     const currentDate = new Date(year, month, day);
@@ -197,8 +215,34 @@ function generateCalendar(
 
 // Handle date selection
 function onDateSelect(date, type) {
-  const arrivalInput = document.getElementById(":r5:-form-item");
-  const departureInput = document.getElementById(":r6:");
+  let arrivalInput = document.getElementById(":r5:-form-item");
+  let departureInput = document.getElementById(":r6:");
+
+  if (window.isIndexPage || !arrivalInput) {
+    arrivalInput = document.getElementById(":r1:-form-item");
+    departureInput = document.getElementById(":r2:");
+  }
+
+  if (window.isIndexPage) {
+    console.log("Date selected:", date.toISOString());
+    if (type === "arrival") {
+      arrivalDate = date;
+      arrivalInput.value = date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      });
+    } else {
+      departureDate = date;
+      departureInput.value = date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      });
+    }
+    sharedPicker.container.style.display = "none";
+    return;
+  }
 
   if (type === "arrival") {
     arrivalDate = date;
@@ -353,8 +397,13 @@ function clearDates(event) {
   event.preventDefault();
   event.stopPropagation();
 
-  const arrivalInput = document.getElementById(":r5:-form-item");
-  const departureInput = document.getElementById(":r6:");
+  let arrivalInput = document.getElementById(":r5:-form-item");
+  let departureInput = document.getElementById(":r6:");
+
+  if (window.isIndexPage || !arrivalInput) {
+    arrivalInput = document.getElementById(":r1:-form-item");
+    departureInput = document.getElementById(":r2:");
+  }
 
   // Clear date variables
   arrivalDate = null;

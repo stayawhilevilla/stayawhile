@@ -97,10 +97,7 @@
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="16x16" />
-    <script
-      id="__googleMapsScriptId"
-      src="https://maps.googleapis.com/maps/api/js?libraries=core&amp;key=AIzaSyCUkCzZUOwyjvoJ_wYHJtKLFsKwi2cmTRY&amp;callback=google.maps.__ib__"
-    ></script>
+   
     <style id="listing-static-nav">
       @media (max-width: 1023px) {
         #site-nav-menu.site-nav-open {
@@ -177,39 +174,42 @@
       .scroll-animate {
         opacity: 0;
         transform: translateY(50px) translateZ(0);
-        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        transition:
+          opacity 0.8s ease-out,
+          transform 0.8s ease-out;
       }
-      
+
       /* Visible state when scrolled into view */
       .scroll-animate.visible {
         opacity: 1;
         transform: translateY(0) translateZ(0);
       }
-      
+
       /* Staggered animation delays */
       .scroll-animate.delay-1 {
         transition-delay: 0.1s;
       }
-      
+
       .scroll-animate.delay-2 {
         transition-delay: 0.2s;
       }
-      
+
       .scroll-animate.delay-3 {
         transition-delay: 0.3s;
       }
-      
+
       .scroll-animate.delay-4 {
         transition-delay: 0.4s;
       }
     </style>
-    <script src="destination_render.js"></script>
-  <script src="https://code.jivosite.com/widget/1DtF208Gdc" async></script></head>
+    
+    <script src="https://code.jivosite.com/widget/1DtF208Gdc" async></script>
+  </head>
 
   <body>
     <header class="z-[100] fixed top-0 left-0 w-full">
       <div
-        class="lg:hidden text-[10px] sm:text-xs bg-black text-white flex justify-between border-b border-b-gold"
+        class="lg:hidden text-[10px] sm:text-xs bg-black text-white flex justify-between border-b border-b-gold" 
       >
         <a href="tel:1-276-306-8715" class="block hover-gold p-2"
           ><span class="inline-flex items-center space-x-2"
@@ -250,7 +250,8 @@
         >
       </div>
       <div
-        id="sticky-form-nav" style="background-color: rgba(0, 0, 0, 0.273)"
+        id="sticky-form-nav"
+        
         class="flex relative px-5 xl:px-12 py-4 w-full justify-center lg:justify-between items-center text-white"
         style="background-color: black"
       >
@@ -259,8 +260,13 @@
             <div
               class="flex flex-row items-center text-[18px] lg:text-sm xl:text-[1.5vw] 2xl:text-[26px] font-normal"
             >
-              STAY AWHILE VILLAS <span>
-                <img src="/images/vip.png" alt="" style="width: 20px; height: 20px; margin-top: -4px;">
+              STAY AWHILE VILLAS
+              <span>
+                <img
+                  src="/images/vip.png"
+                  alt=""
+                  style="width: 20px; height: 20px; margin-top: -4px"
+                />
               </span>
             </div>
           </a>
@@ -279,7 +285,7 @@
               <span class="relative inline-block"
                 ><a
                   class="lg:text-[1vw] xl:text-[12px] opacity-60 transition duration-500 ease-out hover:text-gold hover:opacity-90 hidden lg:block"
-                  href="/destinations.html"
+                  href="/destinations.html?dest=all"
                   ><span class="inline-flex items-center"
                     ><span>Destinations</span
                     ><svg
@@ -330,42 +336,42 @@
                   <li class="animate-fade-in-up hidden lg:block">
                     <a
                       class="block lg:text-[1vw] xl:text-[12px] opacity-60 hover-gold"
-                      href="/destinations.html"
+                      href="/destinations.html?dest=all"
                       ><span class="inline-block">All</span></a
                     >
                   </li>
                   <li class="animate-fade-in-up hidden lg:block">
                     <a
                       class="block lg:text-[1vw] xl:text-[12px] opacity-60 hover-gold"
-                      href="/destinations.html?id=beverly-hills"
+                      href="/destinations.html?dest=beverly hills"
                       ><span class="inline-block">Beverly Hills</span></a
                     >
                   </li>
                   <li class="animate-fade-in-up hidden lg:block">
                     <a
                       class="block lg:text-[1vw] xl:text-[12px] opacity-60 hover-gold"
-                      href="/destinations.html"
+                      href="/destinations.html?dest=fort lauderdale"
                       ><span class="inline-block">Fort Lauderdale</span></a
                     >
                   </li>
                   <li class="animate-fade-in-up hidden lg:block">
                     <a
                       class="block lg:text-[1vw] xl:text-[12px] opacity-60 hover-gold"
-                      href="/destinations.html?id=los-angeles"
+                      href="/destinations.html?dest=los angeles"
                       ><span class="inline-block">Los Angeles</span></a
                     >
                   </li>
                   <li class="animate-fade-in-up hidden lg:block">
                     <a
                       class="block lg:text-[1vw] xl:text-[12px] opacity-60 hover-gold"
-                      href="/destinations.html?id=malibu"
+                      href="/destinations.html?dest=malibu"
                       ><span class="inline-block">Malibu</span></a
                     >
                   </li>
                   <li class="animate-fade-in-up hidden lg:block">
                     <a
                       class="block lg:text-[1vw] xl:text-[12px] opacity-60 hover-gold"
-                      href="/destinations.html?id=malibu-suites"
+                      href="/destinations.html?dest=malibu sand and suites"
                       ><span class="inline-block"
                         >Malibu Sand and Suites</span
                       ></a
@@ -374,7 +380,7 @@
                   <li class="animate-fade-in-up hidden lg:block">
                     <a
                       class="block lg:text-[1vw] xl:text-[12px] opacity-60 hover-gold"
-                      href="/destinations.html?id=sa-suites"
+                      href="/destinations.html?dest=sa beach suites"
                       ><span class="inline-block">SA Beach Suites</span></a
                     >
                   </li>
@@ -531,7 +537,7 @@
             >
               <a
                 class="button py-3 px-5 lg:text-[1vw] xl:text-[12px] inline-block before:bg-white group"
-                href="/destinations.html"
+                href="/destinations.html?dest=all"
               >
                 <div
                   class="transition-all duration-500 ease-[cubic-bezier(0.54, 0.005, 0.155, 0.99)] absolute inset-0 text-dark flex flex-col justify-center items-center clip-path-button-clip group-hover:clip-path-button-clip-hover z-[3]"
@@ -638,9 +644,7 @@
               </p>
             </div>
             <div class="lg:w-2/3 mb-10">
-              <form
-                class="lg:flex text-dark/50 justify-center relative z-50 border border-dark/20 bg-light text-sm"
-              >
+              <form id="filter-display-form" class="lg:flex text-dark/50 justify-center relative z-50 border border-dark/20 bg-light text-sm">
                 <div
                   class="after:bottom-0 after:right-0 after:w-full after:h-[1px] lg:after:h-auto relative after:content-[''] after:bg-dark/10 lg:after:inset-y-3 lg:after:w-[1px] after:absolute after:z-[2] flex-[1.5] lg:w-[auto]"
                 >
@@ -893,14 +897,17 @@
                     <div class="number-label px-8 lg:px-4">Guests</div>
                     <div class="number-buttons">
                       <button
+                        id="guests-plus"
                         class="absolute right-3 top-0 h-full flex flex-col justify-center text-lg px-3"
                         type="button"
                       >
                         +</button
                       ><span
+                        id="guests-value"
                         class="inline-block px-8 py-4 border-transparent w-full focus:border-transparent text-sm text-center"
                         >2</span
                       ><button
+                        id="guests-minus"
                         class="absolute left-3 top-0 h-full flex flex-col justify-center text-lg px-3"
                         type="button"
                       >
@@ -914,14 +921,17 @@
                     <div class="number-label px-8 lg:px-4">Bedrooms</div>
                     <div class="number-buttons">
                       <button
+                        id="bedrooms-plus"
                         class="absolute right-3 top-0 h-full flex flex-col justify-center text-lg px-3"
                         type="button"
                       >
                         +</button
                       ><span
+                        id="bedrooms-value"
                         class="inline-block px-8 py-4 border-transparent w-full focus:border-transparent text-sm text-center"
                         >All</span
                       ><button
+                        id="bedrooms-minus"
                         class="absolute left-3 top-0 h-full flex flex-col justify-center text-lg px-3"
                         type="button"
                       >
@@ -937,6 +947,7 @@
             class="mb-10 overflow-auto flex lg:flex-wrap xl:space-x-2 justify-between"
           >
             <button
+              id="filter-reset-btn"
               class="select-none flex flex-col text-center items-center justify-evenly space-y-2 px-4 opacity-50 pointer-events-none"
             >
               <svg
@@ -1142,12 +1153,33 @@
           </div>
         </div>
         <section class="mb-[150px]">
+          <div id="no-results-message" class="flex flex-col justify-center text-center items-center" style="display: none;">
+            <p class="text-lg text-center">
+              No listings found. Try broadening your search.
+            </p>
+            <a
+              id="no-results-restart-btn"
+              class="button py-3 px-6 lg:text-[1vw] xl:text-[13px] inline-block before:bg-gold group bg-black"
+              href="javascript:void(0)"
+              ><div
+                class="transition-all duration-500 ease-[cubic-bezier(0.54, 0.005, 0.155, 0.99)] absolute inset-0 flex flex-col justify-center items-center clip-path-button-clip group-hover:clip-path-button-clip-hover z-[3]"
+              >
+                <span class="inline-block"
+                  >Click Here to Re-Start Your Search</span
+                >
+              </div>
+              <span class="inline-block"
+                >Click Here to Re-Start Your Search</span
+              ></a
+            >
+          </div>
           <div class="infinite-scroll-component__outerdiv">
             <div
               class="infinite-scroll-component"
               style="height: auto; overflow: hidden"
             >
               <ul
+                id="destination-grid"
                 class="grid mb-5 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 text-white"
               >
                 <li class="group">
@@ -1438,7 +1470,7 @@
                 <a
                   title="Click here to view listings in Beverly Hills"
                   class="absolute inset-0 z-10"
-                  href="/destinations.html?id=beverly-hills"
+                  href="/destinations.html?dest=beverly hills"
                   ><span class="sr-only">Go to Beverly Hills</span></a
                 >
                 <div class="absolute inset-0">
@@ -1481,7 +1513,7 @@
                 <a
                   title="Click here to view listings in Fort Lauderdale"
                   class="absolute inset-0 z-10"
-                  href="/destinations.html"
+                  href="/destinations.html?dest=all"
                   ><span class="sr-only">Go to Fort Lauderdale</span></a
                 >
                 <div class="absolute inset-0">
@@ -1524,7 +1556,7 @@
                 <a
                   title="Click here to view listings in Los Angeles"
                   class="absolute inset-0 z-10"
-                  href="/destinations.html?id=los-angeles"
+                  href="/destinations.html?dest=los angeles"
                   ><span class="sr-only">Go to Los Angeles</span></a
                 >
                 <div class="absolute inset-0">
@@ -1567,7 +1599,7 @@
                 <a
                   title="Click here to view listings in Malibu"
                   class="absolute inset-0 z-10"
-                  href="/destinations.html?id=malibu"
+                  href="/destinations.html?dest=malibu"
                   ><span class="sr-only">Go to Malibu</span></a
                 >
                 <div class="absolute inset-0">
@@ -1612,6 +1644,7 @@
       </div>
       <div
         class="fixed bottom-0 left-1/2 transform -translate-x-1/2 pb-8 z-100 flex justify-center items-center"
+        style="display: none"
       >
         <button class="button uppercase flex">
           <span class="inline-flex items-center gap-2"
@@ -1661,17 +1694,15 @@
                 <li><a href="/owners.html">Owners</a></li>
                 <li><a href="/transportation.html">Transportation</a></li>
                 <li><a href="/black-label">Black Label Collection</a></li>
-                
+
                 <li><a href="/contact-us.html">Contact</a></li>
-                <li><a href="/destinations.html">Destinations</a></li>
-                
-                
+                <li><a href="/destinations.html?dest=all">Destinations</a></li>
               </ul>
             </div>
             <div class="lg:w-[13%] sm:w-1/3 sm:px-2 lg:p-0">
               <ul class="space-y-4">
                 <li>
-                  <a href="/destinations.html?id=beverly-hills"
+                  <a href="/destinations.html?dest=beverly hills"
                     >Beverly Hills</a
                   >
                 </li>
@@ -1681,9 +1712,9 @@
                   >
                 </li>
                 <li>
-                  <a href="/destinations.html?id=los-angeles">Los Angeles</a>
+                  <a href="/destinations.html?dest=los angeles">Los Angeles</a>
                 </li>
-                <li><a href="/destinations.html?id=malibu">Malibu</a></li>
+                <li><a href="/destinations.html?dest=malibu">Malibu</a></li>
               </ul>
             </div>
             <div class="lg:w-[21%] sm:w-1/3 sm:px-2 lg:p-0">
@@ -1864,7 +1895,7 @@
     </footer>
     <script src="destination_render.js"></script>
 
-     <script>
+    <script>
       // Mobile Dropdown Functionality for Destinations and Concierge
       function initMobileDropdowns() {
         // Wait for DOM to be fully ready
@@ -2071,44 +2102,187 @@
 
       document.addEventListener("DOMContentLoaded", () => {
         initListingNav();
-        
-        // Scroll Animation Functionality
-        const animateElements = document.querySelectorAll('section h2, section h3, section p, section > div > div:not(:has(img))');
-        
+
+        // ── URL param helpers ──────────────────────────────────────────────
+        function getParams() {
+          return new URLSearchParams(window.location.search);
+        }
+        function setParams(params) {
+          // Use %20 for spaces (not +) so original labels are readable in the URL
+          const search = params.toString().replace(/\+/g, "%20");
+          history.replaceState(null, "", window.location.pathname + (search ? "?" + search : ""));
+        }
+        function rerender() {
+          initDestinations();
+        }
+
+        // ── Amenity tag mapping (button label → URL tag value) ────────────
+        const TAG_MAP = {
+          "Amazing Views":  "Amazing Views",
+          "Chef's Kitchen": "Chef's Kitchen",
+          "Sandy Beach":    "Sandy Beach",
+          "Pool":           "Pool",
+          "Oceanview":      "Oceanview",
+          "Beachfront":     "Beachfront",
+          "Spa/Hot Tub":    "Spa/Hot Tub",
+          "Oceanfront":     "Oceanfront",
+          "Gated":          "Gated",
+        };
+
+        // ── Initialise UI state from URL params ────────────────────────────
+        const initParams   = getParams();
+        const initGuests   = parseInt(initParams.get("guests"))   || 2;
+        const initBedrooms = parseInt(initParams.get("bedrooms")) || 0;
+        const initTags     = initParams.get("tags")
+          ? initParams.get("tags").split(",").map((t) => t.trim()).filter(Boolean)
+          : [];
+
+        const guestsVal   = document.getElementById("guests-value");
+        const bedroomsVal = document.getElementById("bedrooms-value");
+        if (guestsVal)   guestsVal.textContent   = initGuests;
+        if (bedroomsVal) bedroomsVal.textContent = initBedrooms === 0 ? "All" : initBedrooms;
+
+        const hasInitFilter = initTags.length > 0
+          || initParams.get("guests")
+          || initParams.get("bedrooms");
+
+        // ── Amenity filter buttons ─────────────────────────────────────────
+        const filterButtons = document.querySelectorAll(
+          "button.select-none.flex.flex-col.text-center.items-center.justify-evenly.space-y-2.cursor-pointer.px-4",
+        );
+
+        filterButtons.forEach((button) => {
+          const label    = button.querySelector("span")?.textContent.trim();
+          const tagValue = TAG_MAP[label];
+          if (!tagValue) return;
+
+          // Reflect initial active state
+          if (initTags.includes(tagValue)) {
+            button.classList.add("filter-tag-active", "text-gold");
+          }
+
+          button.addEventListener("click", function () {
+            const params = getParams();
+            const cur = params.get("tags")
+              ? params.get("tags").split(",").map((t) => t.trim()).filter(Boolean)
+              : [];
+
+            const idx = cur.indexOf(tagValue);
+            if (idx > -1) {
+              cur.splice(idx, 1);
+              this.classList.remove("filter-tag-active", "text-gold");
+            } else {
+              cur.push(tagValue);
+              this.classList.add("filter-tag-active", "text-gold");
+            }
+
+            if (cur.length > 0) params.set("tags", cur.join(","));
+            else params.delete("tags");
+
+            setParams(params);
+            enableReset();
+            rerender();
+          });
+        });
+
+        // ── Filter form — display-only (read from URL params, not interactive) ──
+        const filterDisplayForm = document.getElementById("filter-display-form");
+        if (filterDisplayForm) {
+          // Disable all interactions on the form
+          filterDisplayForm.classList.add("pointer-events-none", "select-none");
+
+          // Update the Destinations label to reflect ?dest= param
+          const destParam = initParams.get("dest");
+          const destLabelSpan = filterDisplayForm.querySelector("button[type='button'] > span");
+          if (destLabelSpan && destParam && destParam.toLowerCase() !== "all") {
+            // Capitalise each word for display
+            const readable = destParam
+              .split(",")
+              .map((d) => d.trim().replace(/\b\w/g, (c) => c.toUpperCase()))
+              .join(", ");
+            destLabelSpan.textContent = readable;
+          }
+        }
+
+        // ── Reset button ───────────────────────────────────────────────────
+        const resetBtn = document.getElementById("filter-reset-btn");
+
+        function enableReset() {
+          if (resetBtn) resetBtn.classList.remove("opacity-50", "pointer-events-none");
+        }
+
+        if (resetBtn) {
+          if (!hasInitFilter) resetBtn.classList.add("opacity-50", "pointer-events-none");
+
+          resetBtn.addEventListener("click", function () {
+            const p = getParams();
+            p.delete("tags"); p.delete("guests"); p.delete("bedrooms");
+            setParams(p);
+
+            // Reset display values
+            guestsCount   = 2;  bedroomsCount = 0;
+            if (guestsVal)   guestsVal.textContent   = 2;
+            if (bedroomsVal) bedroomsVal.textContent = "All";
+
+            // Clear active states on tag buttons
+            filterButtons.forEach((b) => b.classList.remove("filter-tag-active", "text-gold"));
+
+            // Disable reset again
+            this.classList.add("opacity-50", "pointer-events-none");
+            rerender();
+          });
+          }
+
+        // ── No-results restart link ────────────────────────────────────────
+        const noResultsRestartBtn = document.getElementById("no-results-restart-btn");
+        if (noResultsRestartBtn) {
+          noResultsRestartBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            // Clear ALL filter params (including dest — full restart)
+            const p = getParams();
+            p.delete("tags"); p.delete("guests"); p.delete("bedrooms"); p.delete("dest");
+            setParams(p);
+
+            // Reset counter UI
+            guestsCount = 2; bedroomsCount = 0;
+            if (guestsVal)   guestsVal.textContent   = 2;
+            if (bedroomsVal) bedroomsVal.textContent = "All";
+
+            // Clear active tag buttons
+            filterButtons.forEach((b) => b.classList.remove("filter-tag-active", "text-gold"));
+
+            // Disable Reset button since everything is cleared
+            if (resetBtn) resetBtn.classList.add("opacity-50", "pointer-events-none");
+
+            rerender();
+          });
+        }
+
+        // ── Scroll animations ──────────────────────────────────────────────
+        const animateElements = document.querySelectorAll(
+          "section h2, section h3, section p, section > div > div:not(:has(img))",
+        );
         animateElements.forEach((element, index) => {
-          if (!element.style.opacity || element.style.opacity === '1') {
-            element.classList.add('scroll-animate');
-            
-            if (index % 4 === 1) element.classList.add('delay-1');
-            else if (index % 4 === 2) element.classList.add('delay-2');
-            else if (index % 4 === 3) element.classList.add('delay-3');
-            else if (index % 4 === 0) element.classList.add('delay-4');
+          if (!element.style.opacity || element.style.opacity === "1") {
+            element.classList.add("scroll-animate");
+            if (index % 4 === 1) element.classList.add("delay-1");
+            else if (index % 4 === 2) element.classList.add("delay-2");
+            else if (index % 4 === 3) element.classList.add("delay-3");
+            else if (index % 4 === 0) element.classList.add("delay-4");
           }
         });
 
-        const observerOptions = {
-          threshold: 0.1,
-          rootMargin: '0px 0px -50px 0px'
-        };
-
+        const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
         const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
-            }
-          });
+          entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add("visible"); });
         }, observerOptions);
-
-        document.querySelectorAll('.scroll-animate').forEach(el => {
-          observer.observe(el);
-        });
+        document.querySelectorAll(".scroll-animate").forEach((el) => observer.observe(el));
 
         setTimeout(() => {
-          document.querySelectorAll('.scroll-animate').forEach(el => {
+          document.querySelectorAll(".scroll-animate").forEach((el) => {
             const rect = el.getBoundingClientRect();
-            if (rect.top < window.innerHeight && rect.bottom > 0) {
-              el.classList.add('visible');
-            }
+            if (rect.top < window.innerHeight && rect.bottom > 0) el.classList.add("visible");
           });
         }, 100);
       });

@@ -53,8 +53,9 @@ document.addEventListener('DOMContentLoaded', function() {
     updateStickyForm();
     
     // 1. Dropdown Toggle Logic
-    const destinationsButton = document.querySelector('button[type="button"]');
-    const destinationsDropdown = document.querySelector('.absolute.inset-x-0.z-50');
+    const stickyFormContainer = document.getElementById('sticky-form-container');
+    const destinationsDropdown = stickyFormContainer ? stickyFormContainer.querySelector('.absolute.inset-x-0.z-50') : null;
+    const destinationsButton = destinationsDropdown ? destinationsDropdown.previousElementSibling : null;
     let isDropdownOpen = false;
     
     if (destinationsButton && destinationsDropdown) {

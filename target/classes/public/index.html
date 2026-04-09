@@ -152,6 +152,7 @@
   </head>
 
   <link rel="stylesheet" href="sticky-form.css" />
+  <link rel="stylesheet" href="calendar.css" />
   <style id="listing-static-nav">
     @media (max-width: 1023px) {
       #site-nav-menu.site-nav-open {
@@ -271,6 +272,11 @@
     .transition-smooth {
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
+    /* Remove height for number-wrapper only on index */
+    .number-wrapper {
+      height: auto !important;
+    }
   </style>
 
   
@@ -352,7 +358,7 @@
               <span class="relative inline-block"
                 ><a
                   class="lg:text-[1vw] xl:text-[12px] opacity-60 transition duration-500 ease-out hover:text-gold hover:opacity-90 hidden lg:block"
-                  href="/destinations.html"
+                  href="/destinations.html?dest=all"
                   ><span class="inline-flex items-center"
                     ><span>Destinations</span
                     ><svg
@@ -402,42 +408,42 @@
                   <li class="animate-fade-in-up hidden lg:block">
                     <a
                       class="block lg:text-[1vw] xl:text-[12px] opacity-60 hover-gold"
-                      href="/destinations.html"
+                      href="/destinations.html?dest=all"
                       ><span class="inline-block">All</span></a
                     >
                   </li>
                   <li class="animate-fade-in-up hidden lg:block">
                     <a
                       class="block lg:text-[1vw] xl:text-[12px] opacity-60 hover-gold"
-                      href="/destinations.html?id=beverly-hills"
+                      href="/destinations.html?dest=beverly hills"
                       ><span class="inline-block">Beverly Hills</span></a
                     >
                   </li>
                   <li class="animate-fade-in-up hidden lg:block">
                     <a
                       class="block lg:text-[1vw] xl:text-[12px] opacity-60 hover-gold"
-                      href="/destinations.html"
+                      href="/destinations.html?dest=fort lauderdale"
                       ><span class="inline-block">Fort Lauderdale</span></a
                     >
                   </li>
                   <li class="animate-fade-in-up hidden lg:block">
                     <a
                       class="block lg:text-[1vw] xl:text-[12px] opacity-60 hover-gold"
-                      href="/destinations.html?id=los-angeles"
+                      href="/destinations.html?dest=los angeles"
                       ><span class="inline-block">Los Angeles</span></a
                     >
                   </li>
                   <li class="animate-fade-in-up hidden lg:block">
                     <a
                       class="block lg:text-[1vw] xl:text-[12px] opacity-60 hover-gold"
-                      href="/destinations.html?id=malibu"
+                      href="/destinations.html?dest=malibu"
                       ><span class="inline-block">Malibu</span></a
                     >
                   </li>
                   <li class="animate-fade-in-up hidden lg:block">
                     <a
                       class="block lg:text-[1vw] xl:text-[12px] opacity-60 hover-gold"
-                      href="/destinations.html?id=malibu-suites"
+                      href="/destinations.html?dest=malibu sand and suites"
                       ><span class="inline-block"
                         >Malibu Sand and Suites</span
                       ></a
@@ -446,7 +452,7 @@
                   <li class="animate-fade-in-up hidden lg:block">
                     <a
                       class="block lg:text-[1vw] xl:text-[12px] opacity-60 hover-gold"
-                      href="/destinations.html?id=sa-suites"
+                      href="/destinations.html?dest=sa beach suites"
                       ><span class="inline-block">SA Beach Suites</span></a
                     >
                   </li>
@@ -603,7 +609,7 @@
             >
               <a
                 class="button py-3 px-5 lg:text-[1vw] xl:text-[12px] inline-block before:bg-white group"
-                href="/destinations.html"
+                href="/destinations.html?dest=all"
               >
                 <div
                   class="transition-all duration-500 ease-[cubic-bezier(0.54, 0.005, 0.155, 0.99)] absolute inset-0 text-dark flex flex-col justify-center items-center clip-path-button-clip group-hover:clip-path-button-clip-hover z-[3]"
@@ -984,6 +990,7 @@
               aria-disabled="false"
               class="button text-sm w-full lg:w-[auto]"
               type="submit"
+              style="height: 57px;"
             >
               <span class="inline-flex items-center">Search</span>
             </button>
@@ -2304,7 +2311,7 @@
                 
                 
                 <li><a href="/contact-us.html">Contact</a></li>
-                <li><a href="/destinations.html">Destinations</a></li>
+                <li><a href="/destinations.html?dest=all">Destinations</a></li>
                 
                 
               </ul>
@@ -2312,7 +2319,7 @@
             <div class="lg:w-[13%] sm:w-1/3 sm:px-2 lg:p-0">
               <ul class="space-y-4">
                 <li>
-                  <a href="/destinations.html?id=beverly-hills"
+                  <a href="/destinations.html?dest=beverly hills"
                     >Beverly Hills</a
                   >
                 </li>
@@ -2322,9 +2329,9 @@
                   >
                 </li>
                 <li>
-                  <a href="/destinations.html?id=los-angeles">Los Angeles</a>
+                  <a href="/destinations.html?dest=los angeles">Los Angeles</a>
                 </li>
-                <li><a href="/destinations.html?id=malibu">Malibu</a></li>
+                <li><a href="/destinations.html?dest=malibu">Malibu</a></li>
               </ul>
             </div>
             <div class="lg:w-[21%] sm:w-1/3 sm:px-2 lg:p-0">
@@ -2506,6 +2513,7 @@
   </body>
   <script src="hover-animations.js"></script>
   <script src="sticky-form-scroll.js"></script>
+  <script src="calendar.js"></script>
   <script src="index_render.js"></script>
 
   <!-- Text animation trigger -->
