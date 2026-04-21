@@ -4,7 +4,7 @@
 async function loadCurrentUser() {
   try {
     // Get user ID from local storage, fallback to '1' if not found
-    const userId = localStorage.getItem('userId') || '1';
+    const userId = localStorage.getItem('userId');
     console.log("[Stays] Loading user data for ID:", userId);
     
     const res = await fetch(`/api/users/${userId}`, {
@@ -25,7 +25,7 @@ async function loadCurrentUser() {
 async function loadUserBookings() {
   try {
     // Get user ID from local storage, fallback to '1' if not found
-    const userId = localStorage.getItem('userId') || '1';
+    const userId = localStorage.getItem('userId');
     console.log("[Stays] Loading bookings for user ID:", userId);
     
     const res = await fetch(`/api/bookings/user/${userId}`, {
@@ -465,7 +465,7 @@ async function populateUserInitials() {
       
       console.log('User initials calculated:', initials);
       console.log('Setting initials to element:', initials);
-      userInitialsElement.textContent = initials || 'SA';
+      userInitialsElement.textContent = initials;
     } else {
       console.log('No user data available or element not found');
       // Fallback to booking data if available
@@ -483,7 +483,7 @@ async function populateUserInitials() {
             initials = lastName.charAt(0).toUpperCase();
           }
           if (userInitialsElement) {
-            userInitialsElement.textContent = initials || 'SA';
+            userInitialsElement.textContent = initials;
           }
         }
       }

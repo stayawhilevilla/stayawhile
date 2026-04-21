@@ -129,7 +129,7 @@ function populateUser(u) {
 async function loadUser() {
   try {
     // Get user ID from local storage, fallback to '1' if not found
-    const userId = localStorage.getItem('userId') || '1';
+    const userId = localStorage.getItem('userId');
     console.log("[Profile] Loading user data for ID:", userId);
     
     const res = await fetch(`/api/users/${userId}`, {
@@ -150,7 +150,7 @@ async function loadUser() {
 // PUT the complete user object
 async function putUser(mergedUser) {
   // Get user ID from local storage, fallback to '1' if not found
-  const userId = localStorage.getItem('userId') || '1';
+  const userId = localStorage.getItem('userId');
   console.log("[Profile] Updating user data for ID:", userId);
   
   const res = await fetch(`/api/users/${userId}`, {

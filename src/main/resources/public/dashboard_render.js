@@ -6,7 +6,7 @@ let currentUser = null;
 async function loadUserBookings() {
   try {
     // Get user ID from local storage, fallback to '1' if not found
-    const userId = localStorage.getItem('userId') || '1';
+    const userId = localStorage.getItem('userId');
     console.log("[Dashboard] Using user ID:", userId);
     
     const res = await fetch(`/api/bookings/user/${userId}`, {
@@ -429,7 +429,7 @@ function createPropertyCard(booking) {
 async function loadCurrentUser() {
   try {
     // Get user ID from local storage, fallback to '1' if not found
-    const userId = localStorage.getItem('userId') || '1';
+    const userId = localStorage.getItem('userId');
     console.log("[Dashboard] Loading user data for ID:", userId);
     
     const res = await fetch(`/api/users/${userId}`, {
