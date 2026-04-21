@@ -26,30 +26,96 @@ async function loadUserBookings() {
 
 
 function updateUserInfo(user) {
-  const userInfoDiv = document.querySelector('[style*="padding: 16px"]');
-  if (userInfoDiv) {
-    userInfoDiv.innerHTML = `
-      <div>Hi, ${user.firstName || user.name || "User"}</div>
-      <div>${user.email || ""}</div>
-    `;
+  console.log("Updating user info with:", user);
+  
+  if (!user) {
+    console.error("No user data provided to updateUserInfo");
+    return;
   }
+  
+  // Try multiple selectors for better reliability
+  const userInfoDiv = document.querySelector('[style*="padding: 16px"]') ||
+                      document.getElementById('user-nav-info') ||
+                      document.querySelector('.user-info');
+  
+  if (!userInfoDiv) {
+    console.error("User info navigation element not found");
+    return;
+  }
+  
+  // Safely extract user data with validation
+  const userName = user?.firstName || user?.name || "User";
+  const userEmail = user?.email || "";
+  
+  console.log(`Setting user info: Name="${userName}", Email="${userEmail}"`);
+  
+  userInfoDiv.innerHTML = `
+    <div>Hi, ${userName}</div>
+    <div>${userEmail}</div>
+  `;
 }
 
 function populatePropertyCards(bookings) {
+  console.log("[Dashboard] Populating property cards with bookings:", bookings);
+  
+  // Validate bookings data
+  if (!bookings || !Array.isArray(bookings) || bookings.length === 0) {
+    console.warn("[Dashboard] No bookings data available to populate property cards");
+    return;
+  }
+
+  const firstBooking = bookings[0];
+  if (!firstBooking || !firstBooking.property) {
+    console.warn("[Dashboard] First booking or property data is missing");
+    return;
+  }
+
+  const property = firstBooking.property;
+  
+  // Update nearby heading with validation
   const nearbyHeading = document.getElementById("nearby-properties-heading");
-  const cityName = bookings[0].property.address.city;
-  nearbyHeading.innerHTML = `Explore more places in <span class="text-gold">${cityName}</span>`;
+  if (nearbyHeading) {
+    try {
+      const cityName = property.address?.city || "Unknown Location";
+      nearbyHeading.innerHTML = `Explore more places in <span class="text-gold">${cityName}</span>`;
+      console.log(`[Dashboard] Updated nearby heading for city: ${cityName}`);
+    } catch (error) {
+      console.error("[Dashboard] Error updating nearby heading:", error);
+    }
+  } else {
+    console.warn("[Dashboard] Nearby heading element not found");
+  }
 
+  // Update stays section with validation
+  const staysElement = document.getElementById("stays");
+  if (staysElement) {
+    try {
+      const propertyCard = createPropertyCard(firstBooking);
+      if (propertyCard) {
+        staysElement.innerHTML = propertyCard.outerHTML;
+        console.log("[Dashboard] Successfully populated stays section");
+      }
+    } catch (error) {
+      console.error("[Dashboard] Error creating property card:", error);
+    }
+  } else {
+    console.warn("[Dashboard] Stays element not found");
+  }
 
-  
-  
-  document.getElementById("stays").innerHTML = createPropertyCard(bookings[0]).outerHTML;
-  console.log("spc",createPropertyCard(bookings[0]))
+  // Initialize nearby properties with validation
+  if (property) {
+    try {
+      initNearbyProperties(property);
+    } catch (error) {
+      console.error("[Dashboard] Error initializing nearby properties:", error);
+    }
+  }
 
-  initNearbyProperties(bookings[0].property);
   // Populate booking details for the first booking
-  if (bookings.length > 0) {
-    populateBookingDetails(bookings[0]);
+  try {
+    populateBookingDetails(firstBooking);
+  } catch (error) {
+    console.error("[Dashboard] Error populating booking details:", error);
   }
 }
 
@@ -669,18 +735,33 @@ async function fetchProperties() {
 }
 
 function initNearbyProperties(property) {
-  if (!property.address?.city) return;
+  console.log("[Dashboard] Initializing nearby properties for:", property);
+  
+  if (!property || !property.address?.city) {
+    console.warn("[Dashboard] Property or city information missing for nearby properties");
+    return;
+  }
 
   const currentCity = property.address.city;
   const currentId = property._id;
+  console.log(`[Dashboard] Looking for properties in city: ${currentCity}, excluding ID: ${currentId}`);
 
   // Fetch all properties from API to find nearby ones
   fetch("/api/properties")
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      return response.json();
+    })
     .then((allProperties) => {
+      console.log("[Dashboard] Raw properties data:", allProperties);
+      
       let properties = Array.isArray(allProperties)
         ? allProperties
         : [allProperties];
+
+      console.log(`[Dashboard] Processing ${properties.length} properties`);
 
       // Filter properties in the same city (excluding current property)
       const nearbyProperties = properties.filter(
@@ -793,18 +874,28 @@ function renderNearbyProperties(properties) {
 
 // Initialize dashboard
 async function initDashboard() {
-  await loadCurrentUser();
-  const bookings = await loadUserBookings();
-  console.log("📋 BOOKINGS:", bookings); // Debug bookings
+  console.log("[Dashboard] Initializing dashboard...");
+  
+  try {
+    await loadCurrentUser();
+    const bookings = await loadUserBookings();
+    console.log("📋 BOOKINGS:", bookings); // Debug bookings
 
-  populatePropertyCards(bookings);
+    // Populate property cards first
+    populatePropertyCards(bookings);
 
-  fetchProperties();
+    // Then fetch and populate additional properties
+    await fetchProperties();
 
-  // Initialize form interactive elements
-  initGuestCounter();
-  initBedroomCounter();
-  initSearchButton();
+    // Initialize form interactive elements
+    initGuestCounter();
+    initBedroomCounter();
+    initSearchButton();
+    
+    console.log("[Dashboard] Dashboard initialization complete");
+  } catch (error) {
+    console.error("[Dashboard] Error during dashboard initialization:", error);
+  }
 }
 
 // Expose functions globally

@@ -128,7 +128,11 @@ function populateUser(u) {
 // Fetch user from API
 async function loadUser() {
   try {
-    const res = await fetch("/api/users/1", {
+    // Get user ID from local storage, fallback to '1' if not found
+    const userId = localStorage.getItem('userId') || '1';
+    console.log("[Profile] Loading user data for ID:", userId);
+    
+    const res = await fetch(`/api/users/${userId}`, {
       headers: { Accept: "application/json" },
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -145,7 +149,11 @@ async function loadUser() {
 
 // PUT the complete user object
 async function putUser(mergedUser) {
-  const res = await fetch("/api/users/1", {
+  // Get user ID from local storage, fallback to '1' if not found
+  const userId = localStorage.getItem('userId') || '1';
+  console.log("[Profile] Updating user data for ID:", userId);
+  
+  const res = await fetch(`/api/users/${userId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

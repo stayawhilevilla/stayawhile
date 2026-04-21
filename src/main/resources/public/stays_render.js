@@ -1,5 +1,51 @@
 // stays_render.js - Logic for displaying booking data on stays.html
 
+// Fetch current user data
+async function loadCurrentUser() {
+  try {
+    // Get user ID from local storage, fallback to '1' if not found
+    const userId = localStorage.getItem('userId') || '1';
+    console.log("[Stays] Loading user data for ID:", userId);
+    
+    const res = await fetch(`/api/users/${userId}`, {
+      headers: { Accept: "application/json" },
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    const user = data.data || data.user || data;
+    console.log("[Stays] User data loaded:", user);
+    return user;
+  } catch (err) {
+    console.warn("[Stays] Could not load user:", err.message);
+    return null;
+  }
+}
+
+// Fetch booking data for user
+async function loadUserBookings() {
+  try {
+    // Get user ID from local storage, fallback to '1' if not found
+    const userId = localStorage.getItem('userId') || '1';
+    console.log("[Stays] Loading bookings for user ID:", userId);
+    
+    const res = await fetch(`/api/bookings/user/${userId}`, {
+      headers: { Accept: "application/json" },
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    const bookings = data.data || data;
+    console.log("[Stays] Bookings data loaded:", bookings);
+    
+    // Store data globally for other functions
+    window.allBookingsData = Array.isArray(bookings) ? bookings : [bookings];
+    return window.allBookingsData;
+  } catch (err) {
+    console.warn("[Stays] Could not load bookings:", err.message);
+    window.allBookingsData = [];
+    return [];
+  }
+}
+
 // Update tab counts based on booking status
 function updateTabCounts() {
   if (!window.allBookingsData || !window.allBookingsData.length) return;
@@ -388,22 +434,22 @@ function getRandomItems(array, count) {
   return shuffled.slice(0, count);
 }
 
-// Populate user initials from booking data
-function populateUserInitials() {
+// Populate user initials from fetched user data
+async function populateUserInitials() {
   console.log('populateUserInitials called');
-  console.log('window.allBookingsData:', window.allBookingsData);
   
-  if (window.allBookingsData && window.allBookingsData.length > 0) {
-    const booking = window.allBookingsData[0];
+  try {
+    // Fetch current user data
+    const user = await loadCurrentUser();
     const userInitialsElement = document.getElementById('user-initials');
     
-    console.log('Booking data:', booking);
+    console.log('User data:', user);
     console.log('User initials element found:', !!userInitialsElement);
     
-    if (userInitialsElement && booking.user) {
+    if (userInitialsElement && user) {
       // Get user initials from first and last name
-      const firstName = booking.user.firstName || '';
-      const lastName = booking.user.lastName || '';
+      const firstName = user.firstName || '';
+      const lastName = user.lastName || '';
       
       console.log('First name:', firstName);
       console.log('Last name:', lastName);
@@ -422,19 +468,49 @@ function populateUserInitials() {
       userInitialsElement.textContent = initials || 'SA';
     } else {
       console.log('No user data available or element not found');
+      // Fallback to booking data if available
+      if (window.allBookingsData && window.allBookingsData.length > 0) {
+        const booking = window.allBookingsData[0];
+        if (booking.user) {
+          const firstName = booking.user.firstName || '';
+          const lastName = booking.user.lastName || '';
+          let initials = '';
+          if (firstName && lastName) {
+            initials = firstName.charAt(0).toUpperCase() + " " + lastName.charAt(0).toUpperCase();
+          } else if (firstName) {
+            initials = firstName.charAt(0).toUpperCase();
+          } else if (lastName) {
+            initials = lastName.charAt(0).toUpperCase();
+          }
+          if (userInitialsElement) {
+            userInitialsElement.textContent = initials || 'SA';
+          }
+        }
+      }
     }
-  } else {
-    console.log('No booking data available');
+  } catch (error) {
+    console.error('Error populating user initials:', error);
   }
 }
 
 // Initialize stays page functionality
-function initStaysPage() {
-  // Call populate function after data loads
-  setTimeout(() => {
+async function initStaysPage() {
+  console.log("[Stays] Initializing stays page...");
+  
+  try {
+    // Load data first
+    await loadUserBookings();
+    console.log("[Stays] Bookings loaded, populating UI...");
+    
+    // Now populate UI with loaded data
     populatePropertyDetails();
     updateTabCounts();
-  }, 1000);
+    await populateUserInitials();
+    
+    console.log("[Stays] UI populated successfully");
+  } catch (error) {
+    console.error("[Stays] Error initializing stays page:", error);
+  }
   
   // Initialize additional fees toggle
   initAdditionalFeesToggle();
