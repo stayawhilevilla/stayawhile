@@ -44,8 +44,8 @@ function updateUserInfo(user) {
   }
   
   // Safely extract user data with validation
-  const userName = user?.firstName || user?.name || "User";
-  const userEmail = user?.email || "";
+  const userName = user?.firstName || user?.name;
+  const userEmail = user?.email;
   
   console.log(`Setting user info: Name="${userName}", Email="${userEmail}"`);
   
