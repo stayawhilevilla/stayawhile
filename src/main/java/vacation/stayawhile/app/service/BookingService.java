@@ -76,14 +76,14 @@ public class BookingService {
         booking.setUser(user);
         
         // Check for overlapping bookings
-        List<Booking> overlappingBookings = bookingRepository.findOverlappingBookings(
-                property.get_id(),
-                booking.getArrivalDate(),
-                booking.getDepartureDate());
-        
-        if (!overlappingBookings.isEmpty()) {
-            throw new RuntimeException("Property is already booked for these dates");
-        }
+//        List<Booking> overlappingBookings = bookingRepository.findOverlappingBookings(
+//                property.get_id(),
+//                booking.getArrivalDate(),
+//                booking.getDepartureDate());
+//        
+//        if (!overlappingBookings.isEmpty()) {
+//            throw new RuntimeException("Property is already booked for these dates");
+//        }
         
         // Calculate total amount if not provided
         if (booking.getTotalAmount() == null && property.getPrices() != null) {

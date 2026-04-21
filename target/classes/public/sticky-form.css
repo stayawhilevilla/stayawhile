@@ -1,0 +1,55 @@
+/* Sticky Form CSS - Extracted from Next.js implementation */
+
+/* Main sticky container - fixed positioning */
+.fixed.w-full.left-0.bottom-0.z-\[99\] {
+  position: fixed !important;
+  
+  left: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  z-index: 99 !important;
+  transform: translateY(-19.7396vh) translateZ(0px);
+  /* background-color: rgb(0, 0, 0); */
+  transition: transform 0.3s ease-in-out;
+}
+
+/* The actual sticky form */
+.sticky.z-50 {
+  position: sticky !important;
+  z-index: 50 !important;
+  top: auto !important;
+  bottom: 0 !important;
+  align-self: flex-end !important;
+}
+
+/* Show the form when scrolling */
+.fixed.w-full.left-0.bottom-0.z-\[99\].show {
+  transform: translateY(0) translateZ(0px);
+}
+
+/* Dropdown styles */
+.absolute.inset-x-0.z-50 {
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 50 !important;
+  transform: scaleY(0) translateZ(0px);
+  transform-origin: bottom !important;
+  transition: transform 0.2s ease-in-out;
+}
+
+.absolute.inset-x-0.z-50.show {
+  transform: scaleY(1) translateZ(0px);
+}
+.animated {
+  background-color: rgb(0, 0, 0);
+  /* transform: translateY(-19.7396vh) translateZ(0px); */
+}
+
+/* Ensure the form stays visible when it should stick */
+@media (min-height: 100vh) {
+  .sticky.z-50 {
+    position: sticky !important;
+    bottom: 0 !important;
+  }
+}
