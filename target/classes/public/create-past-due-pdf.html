@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Stay Awhile Invoice</title>
+<title>Balance Due Notice - Stay Awhile Villas</title>
 <style>
   body {
     font-family: proxima-nova, Arial, sans-serif;
@@ -28,10 +28,10 @@
     font-family: proxima-nova, sans-serif;
   }
   .logo span {
-    color: #333;
+    color: #b89535;
   }
   .section {
-    margin-top: 20px;
+    margin-top: 40px;
   }
   .flex {
     display: flex;
@@ -39,9 +39,21 @@
   }
   .invoice-title {
     text-align: center;
-    font-size: 28px;
-    font-weight: bold;
+    font-size: 24px;
+    font-weight: 300;
+    margin: 40px 0 30px 0;
+    color: #b89535;
+    letter-spacing: 1px;
+  }
+  .payment-notice {
+    background-color: #fafafa;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
     margin: 30px 0;
+    text-align: center;
+    font-weight: 400;
+    color: #666;
+    border-radius: 4px;
   }
   table {
     width: 100%;
@@ -50,7 +62,7 @@
   }
   th, td {
     padding: 10px;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #b89535;
   }
   th {
     text-align: left;
@@ -63,17 +75,19 @@
   }
   .total {
     font-weight: bold;
-    border-top: 2px solid #000;
+    border-top: 2px solid #b89535;
   }
   .note {
     margin-top: 20px;
     font-size: 14px;
   }
   .highlight-box {
-    border: 2px solid #000;
-    padding: 15px;
-    margin-top: 30px;
+    border: 1px solid #e0e0e0;
+    padding: 25px;
+    margin-top: 40px;
     font-size: 14px;
+    background-color: #fafafa;
+    border-radius: 4px;
   }
   .small {
     font-size: 13px;
@@ -87,7 +101,7 @@
 <div class="container">
 
   <div class="header">
-    <div class="logo">STAY AWHILE<span> VILLAS</span></div>
+    <div class="logo">STAY AWHILE VILLAS</div>
     <div class="small">
       <strong>Stay Awhile Villas</strong><br>
       Luxury Villa Rentals<br>
@@ -112,17 +126,21 @@
 
     <div>
       <strong>Booking Details</strong><br>
-      Booking ID: BK1775819681507290<br>
-      Invoice Number: INV-BK1775819681507290<br>
-      Invoice Date: April 15, 2026<br>
+      Booking ID: BK1775730158836403<br>
+      Invoice Number: INV-BK1775730158836403<br>
+      Invoice Date: April 19, 2026<br>
       Stay Period: May 30 - June 6, 2026<br>
       Property: Casa di Pietra by Stay Awhile Villas<br>
-      Guests: 2 persons<br>
+      Guests: 3 persons<br>
       Address: 32852 Pacific Coast Hwy, Malibu, CA 90265
     </div>
   </div>
 
-  <div class="invoice-title">INVOICE</div>
+  <div class="payment-notice">
+    <span style="font-size: 16px; font-weight: 300;">Balance due by <strong>April 24, 2026</strong> (4 days remaining)</span>
+  </div>
+
+  <div class="invoice-title">Balance Due Notice</div>
 
   <table>
     <tr>
@@ -146,8 +164,8 @@
     <tr>
       <td>Damage Waiver</td>
       <td class="right">1</td>
-      <td class="right">$1,225.00</td>
-      <td class="right">$1,225.00</td>
+      <td class="right">$2,625.00</td>
+      <td class="right">$2,625.00</td>
     </tr>
     <tr>
       <td>Transient Occupancy Tax</td>
@@ -162,7 +180,7 @@
       <td class="right">$835.76</td>
     </tr>
     <tr class="total">
-      <td><strong>Total Amount Due</strong></td>
+      <td><strong>Total Amount</strong></td>
       <td></td>
       <td></td>
       <td class="right"><strong>$29,644.76</strong></td>
@@ -170,23 +188,51 @@
   </table>
 
   <div class="section small">
-    <p><strong>Payment Due: Due on Receipt</strong></p>
+    <p style="margin-bottom: 30px; font-size: 16px; color: #666;">
+      <strong style="color: #b89535;">Balance due by April 24, 2026</strong> (4 days remaining)
+    </p>
+    <p style="color: #666; font-weight: 300; line-height: 1.6;">
+      Kindly note that balances remaining after the due date may be subject to a 20% late fee.
+    </p>
     <p>
       Thank you for choosing Stay Awhile Villas. Please complete payment to confirm your reservation.
     </p>
 
-    <p>
-      <strong>Special Requests:</strong><br>
-      • Late arrival expected (around 10 PM)<br>
-      • Airport pickup arrangement needed
+    <div style="margin-top: 30px; padding: 30px; border: 1px solid #e0e0e0; background-color: #fafafa; text-align: center; border-radius: 4px;">
+      <h3 style="margin: 0 0 25px 0; color: #333; font-size: 16px; font-weight: 400; letter-spacing: 1px;">PAYMENT SUMMARY</h3>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <span style="font-weight: 400; font-size: 14px; color: #666;">Total Booking Amount:</span>
+        <span style="font-weight: bold; font-size: 16px;">$29,644.76</span>
+      </div>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <span style="font-weight: 400; font-size: 14px; color: #666;">Amount Paid:</span>
+        <span style="font-weight: bold; font-size: 16px; color: #b89535;">$25,100.25</span>
+      </div>
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid #e0e0e0; margin-top: 15px;">
+        <span style="font-weight: 600; font-size: 16px; color: #333;">Remaining Balance:</span>
+        <span style="font-weight: bold; font-size: 18px; color: #b89535;">$4,544.51</span>
+      </div>
+    </div>
+
+    <p style="margin-top: 30px; margin-bottom: 20px; color: #666; line-height: 1.6;">
+      <strong style="color: #333;">Special Requests:</strong><br>
+      <span style="color: #666;">• Late arrival expected (around 10 PM)<br>
+      • Need airport pickup arrangement</span>
     </p>
 
-    <p>
-      <strong>Payment Methods:</strong> Bank Transfer, Credit Card, Wire Transfer
+    <p style="margin-bottom: 25px; color: #666; line-height: 1.6;">
+      <strong style="color: #333;">Payment Methods:</strong> Bank Transfer, Credit Card, Wire Transfer
     </p>
 
-    <p class="gold">
-      <strong>Important:</strong> Please include Booking ID (BK1775819681507290) in all payments.
+    <div style="text-align: center; margin: 30px 0;">
+      <a href="#" style="display: inline-block; background-color: #b89535; color: #fff; padding: 12px 30px; text-decoration: none; border-radius: 4px; font-weight: 400; font-size: 14px; letter-spacing: 0.5px;">Complete Payment</a>
+    </div>
+    
+    <p style="margin-top: 25px; color: #666; font-size: 13px; text-align: center;">
+      Kindly include your Booking ID (BK1775730158836403) with all payments.
     </p>
   </div>
 
@@ -197,12 +243,12 @@
       <strong>Check-in:</strong> 4:00 PM, <strong>Check-out:</strong> 10:00 AM<br>
       <strong>Address:</strong> 32852 Pacific Coast Hwy, Malibu, CA 90265
     </p>
-    <p>
-      <strong>Cancellation Policy:</strong> 30+ days: full refund minus $950 fee. 
-      14-29 days: 50% refund. Less than 14 days: no refund.
-    </p>
-    <p>
+    
+    <p style="margin-top: 20px; color: #666;">
       For questions, contact <span class="gold">book@stayawhile.vip</span> or <span class="gold">1-276-306-8715</span>.
+    </p>
+    <p style="margin-top: 25px; color: #666; font-style: italic;">
+      We look forward to hosting you.
     </p>
   </div>
 

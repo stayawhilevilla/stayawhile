@@ -1023,6 +1023,35 @@
 
             // Check if response is true or false
             if (data === true) {
+              // Get user ID from the email verification API response
+              try {
+                const userResponse = await fetch(
+                  `/api/users/email/${encodeURIComponent(emailInput.value.trim())}`,
+                  {
+                    method: "GET",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                  },
+                );
+                
+                if (userResponse.ok) {
+                  const userData = await userResponse.json();
+                  console.log("User data:", userData);
+                  
+                  // Save user ID to local storage
+                  if (userData && userData.id) {
+                    localStorage.setItem('userId', userData.id);
+                    console.log("User ID saved to local storage:", userData.id);
+                  } else if (userData && userData.user && userData.user.id) {
+                    localStorage.setItem('userId', userData.user.id);
+                    console.log("User ID saved to local storage:", userData.user.id);
+                  }
+                }
+              } catch (error) {
+                console.error("Error fetching user data for ID:", error);
+              }
+              
               // Navigate to dashboard on successful verification
               window.location.href = "/dashboard.html";
             } else if (data === false) {

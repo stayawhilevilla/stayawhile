@@ -10,7 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -27,6 +30,41 @@ public class BookingController {
             Booking createdBooking = bookingService.createBooking(booking);
             return ResponseEntity.ok(createdBooking);
         } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PostMapping("/batch")
+    public ResponseEntity<?> createBookings(@RequestBody List<Booking> bookings) {
+        try {
+            List<Booking> createdBookings = new ArrayList<>();
+            List<String> errors = new ArrayList<>();
+            
+            for (Booking booking : bookings) {
+                try {
+                    Booking createdBooking = bookingService.createBooking(booking);
+                    createdBookings.add(createdBooking);
+                } catch (RuntimeException e) {
+                    errors.add("Failed to create booking for property " + 
+                              (booking.getProperty() != null ? booking.getProperty().get_id() : "unknown") + 
+                              ": " + e.getMessage());
+                }
+            }
+            
+            if (!errors.isEmpty()) {
+                // Return detailed response with successes and errors
+                Map<String, Object> response = new HashMap<>();
+                response.put("successful", createdBookings);
+                response.put("errors", errors);
+                response.put("totalRequested", bookings.size());
+                response.put("successfulCount", createdBookings.size());
+                response.put("errorCount", errors.size());
+                
+                return ResponseEntity.status(207).body(response); // 207 Multi-Status
+            }
+            
+            return ResponseEntity.ok(createdBookings);
+        } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
     }

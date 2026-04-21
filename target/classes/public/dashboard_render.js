@@ -5,7 +5,11 @@ let currentUser = null;
 // Fetch booking data for user
 async function loadUserBookings() {
   try {
-    const res = await fetch("/api/bookings/user/1", {
+    // Get user ID from local storage, fallback to '1' if not found
+    const userId = localStorage.getItem('userId') || '1';
+    console.log("[Dashboard] Using user ID:", userId);
+    
+    const res = await fetch(`/api/bookings/user/${userId}`, {
       headers: { Accept: "application/json" },
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -358,7 +362,11 @@ function createPropertyCard(booking) {
 // Fetch current user data
 async function loadCurrentUser() {
   try {
-    const res = await fetch("/api/users/1", {
+    // Get user ID from local storage, fallback to '1' if not found
+    const userId = localStorage.getItem('userId') || '1';
+    console.log("[Dashboard] Loading user data for ID:", userId);
+    
+    const res = await fetch(`/api/users/${userId}`, {
       headers: { Accept: "application/json" },
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -811,7 +819,7 @@ window.currentUser = currentUser;
 function initGuestCounter() {
   const numberWrappers = document.querySelectorAll('#sticky-form-container .number-wrapper');
   let guestWrapper = null;
-  
+
   numberWrappers.forEach(wrapper => {
     const label = wrapper.querySelector('.number-label');
     if (label && label.textContent.trim().toLowerCase() === 'guests') {
@@ -819,44 +827,43 @@ function initGuestCounter() {
     }
   });
 
-  if (!guestWrapper) return;
+  if (!guestWrapper) { console.warn('[Dashboard] Guest wrapper not found'); return; }
 
-  const buttons = guestWrapper.querySelectorAll('.number-buttons button');
-  if (buttons.length < 2) return;
-  
-  let plusBtn, minusBtn;
-  if (buttons[0].textContent.includes('+')) {
-      plusBtn = buttons[0];
-      minusBtn = buttons[1];
-  } else {
-      plusBtn = buttons[1];
-      minusBtn = buttons[0];
-  }
-  
   const span = guestWrapper.querySelector('.number-buttons span');
+  if (!span) { console.warn('[Dashboard] Guest span not found'); return; }
 
-  if (!plusBtn || !minusBtn || !span) return;
+  // Fix button positioning: make them relative so clicks register inside an auto-height wrapper
+  const allBtns = guestWrapper.querySelectorAll('.number-buttons button');
+  allBtns.forEach(b => {
+    b.style.position = 'relative';
+    b.style.top = 'auto';
+    b.style.left = 'auto';
+    b.style.right = 'auto';
+    b.style.zIndex = '10';
+  });
+
+  let plusBtn = null, minusBtn = null;
+  allBtns.forEach(b => {
+    if (b.textContent.trim() === '+') plusBtn = b;
+    if (b.textContent.trim() === '-') minusBtn = b;
+  });
+
+  if (!plusBtn || !minusBtn) { console.warn('[Dashboard] Guest +/- buttons not found'); return; }
 
   let count = parseInt(span.textContent) || 2;
   const maxGuests = 20;
 
   plusBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    if (count < maxGuests) {
-      count++;
-    } else {
-      count = 1;
-    }
+    e.stopPropagation();
+    count = count < maxGuests ? count + 1 : 1;
     span.textContent = count;
   });
 
   minusBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    if (count > 1) {
-      count--;
-    } else {
-      count = maxGuests;
-    }
+    e.stopPropagation();
+    count = count > 1 ? count - 1 : maxGuests;
     span.textContent = count;
   });
 }
@@ -864,7 +871,7 @@ function initGuestCounter() {
 function initBedroomCounter() {
   const numberWrappers = document.querySelectorAll('#sticky-form-container .number-wrapper');
   let bedroomWrapper = null;
-  
+
   numberWrappers.forEach(wrapper => {
     const label = wrapper.querySelector('.number-label');
     if (label && label.textContent.trim().toLowerCase() === 'bedrooms') {
@@ -872,44 +879,44 @@ function initBedroomCounter() {
     }
   });
 
-  if (!bedroomWrapper) return;
+  if (!bedroomWrapper) { console.warn('[Dashboard] Bedroom wrapper not found'); return; }
 
-  const buttons = bedroomWrapper.querySelectorAll('.number-buttons button');
-  if (buttons.length < 2) return;
-  
-  let plusBtn, minusBtn;
-  if (buttons[0].textContent.includes('+')) {
-      plusBtn = buttons[0];
-      minusBtn = buttons[1];
-  } else {
-      plusBtn = buttons[1];
-      minusBtn = buttons[0];
-  }
-  
   const span = bedroomWrapper.querySelector('.number-buttons span');
+  if (!span) { console.warn('[Dashboard] Bedroom span not found'); return; }
 
-  if (!plusBtn || !minusBtn || !span) return;
+  // Fix button positioning: make them relative so clicks register inside an auto-height wrapper
+  const allBtns = bedroomWrapper.querySelectorAll('.number-buttons button');
+  allBtns.forEach(b => {
+    b.style.position = 'relative';
+    b.style.top = 'auto';
+    b.style.left = 'auto';
+    b.style.right = 'auto';
+    b.style.zIndex = '10';
+  });
 
-  let count = span.textContent.trim().toLowerCase() === 'all' ? 10 : (parseInt(span.textContent) || 10);
+  let plusBtn = null, minusBtn = null;
+  allBtns.forEach(b => {
+    if (b.textContent.trim() === '+') plusBtn = b;
+    if (b.textContent.trim() === '-') minusBtn = b;
+  });
+
+  if (!plusBtn || !minusBtn) { console.warn('[Dashboard] Bedroom +/- buttons not found'); return; }
+
+  let count = span.textContent.trim().toLowerCase() === 'all' ? 0 : (parseInt(span.textContent) || 0);
+  const maxBedrooms = 10;
 
   plusBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    if (count < 10) {
-      count++;
-    } else {
-      count = 1;
-    }
-    span.textContent = count === 10 ? 'All' : count;
+    e.stopPropagation();
+    count = count < maxBedrooms ? count + 1 : 1;
+    span.textContent = count === 0 ? 'All' : count;
   });
 
   minusBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    if (count > 1) {
-      count--;
-    } else {
-      count = 10;
-    }
-    span.textContent = count === 10 ? 'All' : count;
+    e.stopPropagation();
+    count = count > 0 ? count - 1 : maxBedrooms;
+    span.textContent = count === 0 ? 'All' : count;
   });
 }
 

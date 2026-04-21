@@ -24,5 +24,6 @@ vacation\stayawhile\app\model\Address.class
 vacation\stayawhile\app\model\Amenity.class
 vacation\stayawhile\app\model\ContactInfo.class
 vacation\stayawhile\app\model\VirtualTour.class
+vacation\stayawhile\app\service\MailSenderService.class
 vacation\stayawhile\app\model\Reviews.class
 vacation\stayawhile\app\model\UserStatus.class

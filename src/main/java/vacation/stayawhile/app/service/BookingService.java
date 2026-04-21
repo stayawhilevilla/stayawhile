@@ -22,10 +22,13 @@ public class BookingService {
     private BookingRepository bookingRepository;
     
     @Autowired
+    private UserRepository userRepository;
+    
+    @Autowired
     private VacationPropertyRepository propertyRepository;
     
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
     
     public Booking createBooking(Booking booking) {
         // Validate dates
@@ -41,9 +44,36 @@ public class BookingService {
         VacationProperty property = propertyRepository.findById(booking.getProperty().get_id())
                 .orElseThrow(() -> new RuntimeException("Property not found"));
         
-        // Validate user exists
-        User user = userRepository.findById(booking.getUser().getId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        // Validate and set user
+        User user;
+        if (booking.getUser() != null) {
+            if (booking.getUser().getId() != null) {
+                // Try to find existing user by ID
+                Optional<User> existingUser = userRepository.findById(booking.getUser().getId());
+                if (existingUser.isPresent()) {
+                    user = existingUser.get();
+                } else {
+                    // User ID provided but not found - create new user
+                    user = userService.createUser(booking.getUser());
+                }
+            } else if (booking.getUser().getUserId() != null) {
+                // Try to find existing user by userId
+                Optional<User> existingUser = userRepository.findByUserId(booking.getUser().getUserId());
+                if (existingUser.isPresent()) {
+                    user = existingUser.get();
+                } else {
+                    // User userId provided but not found - create new user
+                    user = userService.createUser(booking.getUser());
+                }
+            } else {
+                // Create new user if complete user object is provided
+                user = userService.createUser(booking.getUser());
+            }
+        } else {
+            throw new RuntimeException("User information is required");
+        }
+        
+        booking.setUser(user);
         
         // Check for overlapping bookings
         List<Booking> overlappingBookings = bookingRepository.findOverlappingBookings(
@@ -82,21 +112,76 @@ public class BookingService {
         booking.setUpdatedAt(LocalDate.now());
         
         Booking savedBooking = bookingRepository.save(booking);
+        
+        // Fetch and set complete user object
+        User completeUser = userRepository.findById(savedBooking.getUser().getId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        savedBooking.setUser(completeUser);
+        
+        // Fetch and set complete property object
+        VacationProperty completeProperty = propertyRepository.findById(savedBooking.getProperty().get_id())
+                .orElseThrow(() -> new RuntimeException("Property not found"));
+        savedBooking.setProperty(completeProperty);
+        
         System.out.println("Created booking with reference: " + savedBooking.getBookingReference());
         System.out.println("Property: " + savedBooking.getProperty().getTitle());
         System.out.println("Guest: " + savedBooking.getUser().getFirstName() + " " + savedBooking.getUser().getLastName());
         System.out.println("Dates: " + savedBooking.getArrivalDate() + " to " + savedBooking.getDepartureDate());
         System.out.println("Guests: " + savedBooking.getNumberOfGuests());
+        System.out.println("Total Amount: $" + savedBooking.getTotalAmount());
         
         return savedBooking;
     }
     
     public List<Booking> getAllBookings() {
-        return bookingRepository.findAll();
+        List<Booking> bookings = bookingRepository.findAll();
+        
+        // Fetch complete user and property objects for each booking
+        for (Booking booking : bookings) {
+            if (booking.getUser() != null && booking.getUser().getId() != null) {
+                User completeUser = userRepository.findById(booking.getUser().getId()).orElse(null);
+                if (completeUser != null) {
+                    booking.setUser(completeUser);
+                }
+            }
+            
+            if (booking.getProperty() != null && booking.getProperty().get_id() != null) {
+                VacationProperty completeProperty = propertyRepository.findById(booking.getProperty().get_id()).orElse(null);
+                if (completeProperty != null) {
+                    booking.setProperty(completeProperty);
+                }
+            }
+        }
+        
+        return bookings;
     }
     
     public Optional<Booking> getBookingById(Long id) {
-        return bookingRepository.findById(id);
+        Optional<Booking> booking = bookingRepository.findById(id);
+        
+        if (booking.isPresent()) {
+            Booking b = booking.get();
+            
+            // Fetch complete user object
+            if (b.getUser() != null && b.getUser().getId() != null) {
+                User completeUser = userRepository.findById(b.getUser().getId()).orElse(null);
+                if (completeUser != null) {
+                    b.setUser(completeUser);
+                }
+            }
+            
+            // Fetch complete property object
+            if (b.getProperty() != null && b.getProperty().get_id() != null) {
+                VacationProperty completeProperty = propertyRepository.findById(b.getProperty().get_id()).orElse(null);
+                if (completeProperty != null) {
+                    b.setProperty(completeProperty);
+                }
+            }
+            
+            return Optional.of(b);
+        }
+        
+        return Optional.empty();
     }
     
     public Optional<Booking> getBookingByReference(String reference) {
