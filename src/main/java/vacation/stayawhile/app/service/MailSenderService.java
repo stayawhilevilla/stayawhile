@@ -24,7 +24,7 @@ public class MailSenderService {
 	public void sendEmail(String toEmail, String subject, String body) {
         // URL of your Node.js mailer service
 
-        String url = "http://31.42.189.89:3000/send-email";
+        String url = "http://31.42.188.109:3000/send-email";
 
         String jsonPayload = String.format(
                 "{\"to\":\"%s\", \"subject\":\"%s\", \"html\":\"%s\"}",

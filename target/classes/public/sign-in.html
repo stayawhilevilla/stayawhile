@@ -932,6 +932,9 @@
             const data = await response.json();
             console.log("API Response:", data);
             
+            // Store user data globally for later use
+            window.userData = data;
+            
             // Update the email text in card-2
             const userEmailSpan = document.getElementById("user-email");
             if (userEmailSpan) {
@@ -1023,33 +1026,19 @@
 
             // Check if response is true or false
             if (data === true) {
-              // Get user ID from the email verification API response
-              try {
-                const userResponse = await fetch(
-                  `/api/users/email/${encodeURIComponent(emailInput.value.trim())}`,
-                  {
-                    method: "GET",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                  },
-                );
-                
-                if (userResponse.ok) {
-                  const userData = await userResponse.json();
-                  console.log("User data:", userData);
-                  
-                  // Save user ID to local storage
-                  if (userData && userData.id) {
-                    localStorage.setItem('userId', userData.id);
-                    console.log("User ID saved to local storage:", userData.id);
-                  } else if (userData && userData.user && userData.user.id) {
-                    localStorage.setItem('userId', userData.user.id);
-                    console.log("User ID saved to local storage:", userData.user.id);
-                  }
-                }
-              } catch (error) {
-                console.error("Error fetching user data for ID:", error);
+              // Use stored user data from the first API call
+              const userData = window.userData;
+              console.log("Using stored user data:", userData);
+              
+              // Save user ID to local storage
+              if (userData && userData.id) {
+                localStorage.setItem('userId', userData.id);
+                console.log("User ID saved to local storage:", userData.id);
+              } else if (userData && userData.user && userData.user.id) {
+                localStorage.setItem('userId', userData.user.id);
+                console.log("User ID saved to local storage:", userData.user.id);
+              } else {
+                console.warn("User ID not found in stored data");
               }
               
               // Navigate to dashboard on successful verification
